@@ -1,0 +1,11 @@
+<h1><a routerLink="/collections"><i class="fas fa-arrow-circle-left"></i></a><span *ngIf="selectedCollection"> {{ selectedCollection.setName }}</span></h1>
+
+<p *ngIf="!listList"><em>Loading...</em></p>
+
+<ul *ngIf="listList" class="widelist">
+  <li *ngFor="let thisList of listList; let i = index" (click)="onSelect(thisList)" [class.selected]="thisList === selectedList">
+    <span class="badge">{{i+1}}</span>{{ thisList.listName}}
+    <span style="float: right; margin-left: 6px;" (click)="resetChecks(thisList)"><i class="fas fa-recycle"></i></span>
+    <span style="float: right; font-size: 0.7em; margin-top: 4px;">( {{ thisList.actionsComplete}} / {{ thisList.actionsCount}} )</span>
+  </li>
+</ul>

@@ -1,0 +1,10 @@
+<h1><i class="fas fa-check-double"></i> Collections</h1>
+
+<p>Hello, {{myUserName}}</p>
+<p *ngIf="!collectionList"><em>Loading...</em></p>
+<ul *ngIf="collectionList" class="widelist">
+  <li *ngFor="let thisCollection of collectionList; let i = index" (click)="onSelect(thisCollection)" [class.selected]="thisCollection === selectedCollection">
+    <span class="badge">{{i+1
+  }}</span>{{ thisCollection.setName}}
+  </li>
+  </ul>

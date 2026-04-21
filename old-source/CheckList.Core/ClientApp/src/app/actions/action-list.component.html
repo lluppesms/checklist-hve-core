@@ -1,0 +1,21 @@
+<h1>
+  <a *ngIf="selectedList" routerLink="/lists/{{ selectedList.setId }}"><i class="fas fa-arrow-circle-left"></i></a>
+  <span *ngIf="selectedList"> {{ selectedList.listName }} </span>
+  <span title="Uncheck Everything" style="float: right; margin-left: 6px;" (click)="resetChecks()"><i class="fas fa-recycle"></i></span>
+  <span title="Add Action" style="float: right; margin-left: 6px;" (click)="addAction()"><i class="fas fa-plus"></i></span>
+</h1>
+
+<p *ngIf="!actionsList"><em>Loading...</em></p>
+
+<div *ngFor="let group of groupedActions; let i = index">
+  <h2>{{ group.categoryText }} <span style="float: right;">({{actionsComplete}} / {{actionsCount}})</span></h2>
+  <ul *ngIf="group.actions" class="widelist">
+    <li *ngFor="let groupAction of group.actions; let i = index" (click)="onSelect(groupAction)" [class.selected]="groupAction === selectedAction">
+      <span class="badge"><input type="checkbox" [(ngModel)]="groupAction.isComplete" readonly /></span>
+      <span [class.strikeoutText]="groupAction.isComplete">{{ groupAction.actionText}}</span>
+      <span style="float: right; margin-left: 6px;" (click)="deleteAction(groupAction.actionId, groupAction.actionText)"><i class="fas fa-minus-circle" style="color:darkred;"></i></span>
+      <span style="float: right; margin-left: 6px;" (click)="editAction(groupAction.actionId)"><i class="fas fa-pen" style="color:darkblue;"></i></span>
+    </li>
+  </ul>
+</div>
+

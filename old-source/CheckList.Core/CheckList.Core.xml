@@ -1,0 +1,3636 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CheckList.Core</name>
+    </assembly>
+    <members>
+        <member name="T:CheckListApp.API.CheckActionsAPIController">
+            <summary>
+            CheckAction API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckActionsAPIController.CheckActionRepo">
+            <summary>
+            CheckAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckActions API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionsAPIController.List(System.Int32)">
+            <summary>
+            Get List of Actions
+            </summary>
+            <param name="id">Key</param>
+            <returns>Records</returns>
+        </member>
+        <member name="T:CheckListApp.API.CheckActionAPIController">
+            <summary>
+            CheckAction API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckActionAPIController.CheckActionRepo">
+            <summary>
+            CheckAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckAction API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionAPIController.Post(CheckListApp.Data.CheckAction)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="checkAction">Record</param>
+            <returns>Response</returns>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionAPIController.Put(CheckListApp.Data.CheckAction)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="checkAction">Record</param>
+            <returns>Response</returns>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns>
+        </member>
+        <member name="T:CheckListApp.API.CheckActionCompleteAPIController">
+            <summary>
+            CheckAction API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckActionCompleteAPIController.CheckActionRepo">
+            <summary>
+            CheckAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionCompleteAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckAction Complete API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckActionCompleteAPIController.SetComplete(CheckListApp.Data.CompletionViewModel)">
+            <summary>
+            Update One Record
+            </summary>
+            <param name="model">Completion model</param>
+            <returns>success</returns>
+        </member>
+        <member name="T:CheckListApp.API.CheckCategorysAPIController">
+            <summary>
+            CheckCategory API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckCategorysAPIController.CheckCategoryRepo">
+            <summary>
+            CheckCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckCategorysAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckCategorys API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckCategorysAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.CheckCategoryAPIController">
+            <summary>
+            CheckCategory API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckCategoryAPIController.CheckCategoryRepo">
+            <summary>
+            CheckCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckCategoryAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckCategory API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckCategoryAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCategoryAPIController.Post(CheckListApp.Data.CheckCategory)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="checkCategory">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCategoryAPIController.Put(CheckListApp.Data.CheckCategory)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="checkCategory">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCategoryAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API.CheckCollectionsAPIController">
+            <summary>
+            CheckSet API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckCollectionsAPIController.CheckSetRepo">
+            <summary>
+            CheckSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckSets API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionsAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.CheckCollectionAPIController">
+            <summary>
+            CheckSet API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckCollectionAPIController.CheckSetRepo">
+            <summary>
+            CheckSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckSet API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionAPIController.Post(CheckListApp.Data.CheckSet)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="checkSet">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionAPIController.Put(CheckListApp.Data.CheckSet)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="checkSet">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckCollectionAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API.CheckListsAPIController">
+            <summary>
+            CheckList API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckListsAPIController.CheckListRepo">
+            <summary>
+            CheckList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckListsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckLists API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckListsAPIController.List(System.Int32)">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns>
+        </member>
+        <member name="T:CheckListApp.API.CheckListAPIController">
+            <summary>
+            CheckList API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.CheckListAPIController.CheckListRepo">
+            <summary>
+            CheckList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.CheckListAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            CheckList API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.CheckListAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.CheckListAPIController.Post(CheckListApp.Data.CheckList)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="checkList">Record</param>
+            <returns>Response</returns>
+        </member>
+        <member name="M:CheckListApp.API.CheckListAPIController.Put(CheckListApp.Data.CheckList)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="checkList">Record</param>
+            <returns>Response</returns>
+        </member>
+        <member name="M:CheckListApp.API.CheckListAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns>
+        </member>
+        <member name="T:CheckListApp.API.TemplateActionsAPIController">
+            <summary>
+            TemplateAction API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateActionsAPIController.TemplateActionRepo">
+            <summary>
+            TemplateAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateActions API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionsAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateActionAPIController">
+            <summary>
+            TemplateAction API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateActionAPIController.TemplateActionRepo">
+            <summary>
+            TemplateAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateAction API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionAPIController.Post(CheckListApp.Data.TemplateAction)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="templateAction">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionAPIController.Put(CheckListApp.Data.TemplateAction)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="templateAction">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateActionAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateCategorysAPIController">
+            <summary>
+            TemplateCategory API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateCategorysAPIController.TemplateCategoryRepo">
+            <summary>
+            TemplateCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategorysAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateCategorys API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategorysAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateCategoryAPIController">
+            <summary>
+            TemplateCategory API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateCategoryAPIController.TemplateCategoryRepo">
+            <summary>
+            TemplateCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategoryAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateCategory API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategoryAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategoryAPIController.Post(CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="templateCategory">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategoryAPIController.Put(CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="templateCategory">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateCategoryAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateListsAPIController">
+            <summary>
+            TemplateList API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateListsAPIController.TemplateListRepo">
+            <summary>
+            TemplateList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateListsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateLists API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateListsAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateListAPIController">
+            <summary>
+            TemplateList API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateListAPIController.TemplateListRepo">
+            <summary>
+            TemplateList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateListAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateList API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateListAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateListAPIController.Post(CheckListApp.Data.TemplateList)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="templateList">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateListAPIController.Put(CheckListApp.Data.TemplateList)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="templateList">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateListAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateSetsAPIController">
+            <summary>
+            TemplateSet API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateSetsAPIController.TemplateSetRepo">
+            <summary>
+            TemplateSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetsAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateSets API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetsAPIController.List">
+            <summary>
+            Get List of Records
+            </summary>
+            <returns>Records</returns> 
+        </member>
+        <member name="T:CheckListApp.API.TemplateSetAPIController">
+            <summary>
+            TemplateSet API Controller
+            </summary>
+        </member>
+        <member name="P:CheckListApp.API.TemplateSetAPIController.TemplateSetRepo">
+            <summary>
+            TemplateSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetAPIController.#ctor(Microsoft.Extensions.Options.IOptions{CheckListApp.Data.AppSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor,CheckListApp.Data.ProjectEntities)">
+            <summary>
+            TemplateSet API Controller
+            </summary>
+            <param name="settingsAccessor">System Settings</param>
+            <param name="contextAccessor">System Context</param>
+            <param name="dbContext">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetAPIController.Get(System.Int32)">
+            <summary>
+            Get One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Record</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetAPIController.Post(CheckListApp.Data.TemplateSet)">
+            <summary>
+            Post (Add) One Record
+            </summary>
+            <param name="templateSet">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetAPIController.Put(CheckListApp.Data.TemplateSet)">
+            <summary>
+            Put (Update) One Record
+            </summary>
+            <param name="templateSet">Record</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="M:CheckListApp.API.TemplateSetAPIController.Delete(System.Int32)">
+            <summary>
+            Delete One Record
+            </summary>
+            <param name="id">Key</param>
+            <returns>Response</returns> 
+        </member>
+        <member name="T:CheckListApp.API._BaseController">
+            <summary>
+            Base API Controller
+            </summary>
+        </member>
+        <member name="F:CheckListApp.API._BaseController.AppSettingsValues">
+            <summary>
+            Access Application Settings 
+            </summary>
+        </member>
+        <member name="F:CheckListApp.API._BaseController.context">
+            <summary>
+            Access the HTTPContext for this request
+            </summary>
+        </member>
+        <member name="F:CheckListApp.API._BaseController.database">
+            <summary>
+            Access the HTTPContext for this request
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.#ctor">
+            <summary>
+            Base Controller Instantiation
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetUserName">
+            <summary>
+            Returns User Name if logged on, UNKNOWN if not
+            </summary>
+            <returns>User Name</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetUserId">
+            <summary>
+            Returns UserId if logged on, empty if not
+            </summary>
+            <returns>UserId</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.IsAdmin">
+            <summary>
+            Returns true if user is in Admin Role, false if not or not logged in
+            </summary>
+            <returns>Is Admin</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.IsAjaxRequest">
+            <summary>
+            Determines whether the specified HTTP request is an AJAX request.
+            </summary>
+            <returns>
+            true if the specified HTTP request is an AJAX request; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.WriteToLog(System.String)">
+            <summary>
+            Write Info Message
+            </summary>
+            <param name="msg">Message</param>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.WriteSevereError(System.String)">
+            <summary>
+            Write Error Message
+            </summary>
+            <param name="msg">Message</param>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetExceptionMessage(System.Exception)">
+            <summary>
+            Build one string from multiple nested error messages for logging
+            </summary>
+            <param name="ex">Exception</param>
+            <returns>All the messages together</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CStrNull(System.Object)">
+            <summary>
+            Convert object to a valid string even if null
+            </summary>
+            <param name="o">Object</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CStrNull(System.Object,System.String)">
+            <summary>
+            Convert object to a valid string even if null
+            </summary>
+            <param name="o">Object</param>
+            <param name="dflt">Default Value</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CDecNull(System.Object)">
+            <summary>
+            Convert object to a valid decimal even if null
+            </summary>
+            <param name="o">Object</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CDecNull(System.Object,System.Decimal)">
+            <summary>
+            Convert object to a valid decimal even if null
+            </summary>
+            <param name="o">Object</param>
+            <param name="dflt">Default Value</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CIntNull(System.Object)">
+            <summary>
+            Convert object to a valid integer even if null
+            </summary>
+            <param name="o">Object</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CIntNull(System.Object,System.Int32)">
+            <summary>
+            Convert object to a valid integer even if null
+            </summary>
+            <param name="o">Object</param>
+            <param name="dflt">Default Value</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CDateNull(System.Object)">
+            <summary>
+            Convert object to a valid date time even if null
+            </summary>
+            <param name="o">Object</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.CDateNull(System.Object,System.DateTime)">
+            <summary>
+            Convert object to a valid date time even if null
+            </summary>
+            <param name="o">Object</param>
+            <param name="dflt">Default Value</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.ShowAllModelStateErrors(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            Gets a list of errors in the model state and combines them into one simple string.
+            Very useful for debugging if you get an error in your model, but you are not displaying the field on the screen so you don't know what it is.
+            </summary>
+            <param name="ms">Model State.</param>
+            <returns>List of errors in one string.</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.RemoveAuditFieldsFromValidation">
+            <summary>
+            Removes auto-populated audit fields from validation
+            </summary>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.RemoveAuditFieldsFromValidation(System.String[])">
+            <summary>
+            Removes auto-populated audit fields from validation
+            </summary>
+            <param name="fieldsToRemove">List of fields to remove from ModelState</param>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetRangedNumberList(System.Int32,System.Int32)">
+            <summary>
+            Get Ranged Number List
+            </summary>
+            <param name="minValue">Min value</param>
+            <param name="maxValue">Max value</param>
+            <returns>List</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetSortOrderList">
+            <summary>
+            Get Number 1-99 List
+            </summary>
+            <returns>List</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.GetYesNoList">
+            <summary>
+            Get Yes/No List
+            </summary>
+            <returns>List</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.SerializeObjectToXMLString(System.Object)">
+            <summary>
+            Serializes an object to an XML stream
+            </summary>
+            <param name="obj">Object</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.SerializeObjectToXMLByteArray(System.Object)">
+            <summary>
+            Serializes an object to an XML stream
+            </summary>
+            <param name="obj">Object</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.SerializeObjectToJsonString(System.Object)">
+            <summary>
+            Serialize object to JSON string
+            </summary>
+            <param name="obj">Object</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.SerializeObjectToJsonByteArray(System.Object)">
+            <summary>
+            Serialize object to JSON Byte Array
+            </summary>
+            <param name="obj">Object</param>
+            <returns>Byte Array</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.UTF8ByteArrayToString(System.Byte[])">
+            <summary>
+            To convert a Byte Array of Unicode values (UTF-8 encoded) to a complete String.
+            </summary>
+            <param name="characters">Unicode Byte Array to be converted to String</param>
+            <returns>String converted from Unicode Byte Array</returns>
+        </member>
+        <member name="M:CheckListApp.API._BaseController.StringToUTF8ByteArray(System.String)">
+            <summary>
+            Converts the String to UTF8 Byte array and is used in De serialization
+            </summary>
+            <param name="stringToConvert">String to Convert</param>
+            <returns>Byte Array</returns>
+        </member>
+        <member name="P:CheckListApp.Extensions.AzureAdLuppesAdminGroupPolicy.Name">
+            <summary>
+            The policy name.
+            </summary>
+        </member>
+        <member name="F:CheckListApp.Extensions.AzureAdLuppesAdminGroupPolicy.GroupId">
+            <summary>
+            The group identifier.
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Extensions.AzureAdLuppesAdminGroupPolicy.Build(Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder)">
+            <summary>
+            Builds the specified policy
+            </summary>
+            <param name="builder">The builder.</param>
+        </member>
+        <member name="T:CheckListApp.Hub.ActionHub">
+            <summary>
+            Signal R Action Coordinator
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Hub.ActionHub.ValidateRoomName(System.String)">
+            <summary>
+            Validates that this string has only letters
+            </summary>
+            <param name="input">Input string</param>
+            <returns>Validated string</returns>
+        </member>
+        <member name="M:CheckListApp.Hub.ActionHub.IsOnlyTheseCharacters(System.String,System.Int32,System.String)">
+            <summary>
+            Validates that this string has only letters
+            </summary>
+            <param name="input">Input string</param>
+            <param name="maxLength">Maximum Length</param>
+            <param name="validCharacters">The valid characters.</param>
+            <returns>Validated string</returns>
+        </member>
+        <member name="T:CheckListApp.Chat">
+            <summary>
+            Signal R Chat Coordinator
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.SignalR.Hub" />
+        </member>
+        <member name="M:CheckListApp.Chat.BroadcastMessage(System.String,System.String)">
+            <summary>
+            Broadcasts the message.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:CheckListApp.Chat.SendVote(System.String,System.String)">
+            <summary>
+            Sends the vote.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:CheckListApp.Chat.RevealVotes(System.String,System.String)">
+            <summary>
+            Reveals the votes.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:CheckListApp.Chat.ClearVotes(System.String,System.String)">
+            <summary>
+            Clears the votes.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:CheckListApp.Chat.Echo(System.String,System.String)">
+            <summary>
+            Echoes the specified name.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:CheckListApp.Data.AppSettings">
+            <summary>
+            Application Settings
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.UserName">
+            <summary>
+            User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.DefaultConnection">
+            <summary>
+            Default Connection 
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.ProjectEntities">
+            <summary>
+            Project Entities
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.EmailFrom">
+            <summary>
+            Email From
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.SendErrorsTo">
+            <summary>
+            Send Errors To
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.SendGridServer">
+            <summary>
+            Send Grid Server
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.SendGridUserId">
+            <summary>
+            Send Grid User
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.SendGridPassword">
+            <summary>
+            Send Grid Password
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.AllowedFileTypesSchema">
+            <summary>
+            Allowed File Types
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.AdminGroupId">
+            <summary>
+            Admin Group Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.SignalRHub">
+            <summary>
+            Signal R Hub
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.AppSettings.APIKeys">
+            <summary>
+            API Keys
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.AppSettings.#ctor">
+            <summary>
+            Application Settings
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ProjectEntities">
+            <summary>
+            Database Entities
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.CheckAction">
+            <summary>
+            CheckAction Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.TemplateSet">
+            <summary>
+            TemplateSet Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.TemplateList">
+            <summary>
+            TemplateList Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.TemplateCategory">
+            <summary>
+            TemplateCategory Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.TemplateAction">
+            <summary>
+            TemplateAction Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.CheckSet">
+            <summary>
+            CheckSet Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.CheckList">
+            <summary>
+            CheckList Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ProjectEntities.CheckCategory">
+            <summary>
+            CheckCategory Table
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.StaticCodeTable">
+            <summary>
+            Code Table of strings
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.StaticCodeTable.#ctor(System.String,System.String)">
+            <summary>
+            Initialize Code Table Record
+            </summary>
+            <param name="value">Value</param>
+            <param name="dscr">Description</param>
+        </member>
+        <member name="P:CheckListApp.Data.StaticCodeTable.CodeValue">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.StaticCodeTable.CodeDscr">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.StaticNumberTable">
+            <summary>
+            Code Table of numbers
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.StaticNumberTable.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initialize Code Table Record
+            </summary>
+            <param name="value">Value</param>
+            <param name="dscr">Description</param>
+        </member>
+        <member name="P:CheckListApp.Data.StaticNumberTable.CodeValue">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.StaticNumberTable.CodeDscr">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.StaticByteTable">
+            <summary>
+            Code Table of bytes
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.StaticByteTable.#ctor(System.Byte,System.Byte)">
+            <summary>
+            Initialize Code Table Record
+            </summary>
+            <param name="value">Value</param>
+            <param name="dscr">Description</param>
+        </member>
+        <member name="P:CheckListApp.Data.StaticByteTable.CodeValue">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.StaticByteTable.CodeDscr">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.SuccessMessage">
+            <summary>
+            Success Message
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.SuccessMessage.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.SuccessMessage.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.SuccessMessage.#ctor">
+            <summary>
+            Success Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.SuccessMessage.#ctor(System.String)">
+            <summary>
+            Success Message
+            </summary>
+            <param name="msg">Message</param>
+        </member>
+        <member name="M:CheckListApp.Data.SuccessMessage.#ctor(System.String,System.Boolean)">
+            <summary>
+            Success Message
+            </summary>
+            <param name="msg">Message</param>
+            <param name="success">Success</param>
+        </member>
+        <member name="T:CheckListApp.Data.ValueMessage">
+            <summary>
+            Value Message
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ValueMessage.Value">
+            <summary>
+            Integer
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ValueMessage.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ValueMessage.#ctor">
+            <summary>
+            Value Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ValueMessage.#ctor(System.String)">
+            <summary>
+            Value Message
+            </summary>
+            <param name="msg">Message</param>
+        </member>
+        <member name="M:CheckListApp.Data.ValueMessage.#ctor(System.String,System.Int32)">
+            <summary>
+            Value Message
+            </summary>
+            <param name="msg">Message</param>
+            <param name="value">Value</param>
+        </member>
+        <member name="T:CheckListApp.Data.CheckAction">
+            <summary>
+            CheckAction Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ActionId">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.CategoryId">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ListId">
+            <summary>
+            List
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ActionText">
+            <summary>
+            Action Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ActionDscr">
+            <summary>
+            Action Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.CompleteInd">
+            <summary>
+            Complete
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckAction.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckActionGrid">
+            <summary>
+            CheckAction Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.CheckAction},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.CheckCategory">
+            <summary>
+            CheckCategory Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.CategoryId">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.ListId">
+            <summary>
+            List
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.CategoryText">
+            <summary>
+            Category Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.CategoryDscr">
+            <summary>
+            Category Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategory.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckCategoryGrid">
+            <summary>
+            CheckCategory Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategoryGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategoryGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckCategoryGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.CheckCategory},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.CheckList">
+            <summary>
+            CheckList Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ListId">
+            <summary>
+            List
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.SetId">
+            <summary>
+            Set
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ListName">
+            <summary>
+            List Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ListDscr">
+            <summary>
+            List Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckList.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckListGrid">
+            <summary>
+            CheckList Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.CheckList},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.CheckSet">
+            <summary>
+            CheckSet Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.SetId">
+            <summary>
+            Set
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.TemplateSetId">
+            <summary>
+            Template Set
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.SetName">
+            <summary>
+            Set Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.SetDscr">
+            <summary>
+            Set Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.OwnerName">
+            <summary>
+            Owner Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSet.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckSetGrid">
+            <summary>
+            CheckSet Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSetGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSetGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckSetGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.CheckSet},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateAction">
+            <summary>
+            TemplateAction Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.ActionId">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.CategoryId">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.ActionText">
+            <summary>
+            Action Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.ActionDscr">
+            <summary>
+            Action Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.CompleteInd">
+            <summary>
+            Complete
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateAction.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateActionGrid">
+            <summary>
+            TemplateAction Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateActionGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateActionGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateActionGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.TemplateAction},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateCategory">
+            <summary>
+            TemplateCategory Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.CategoryId">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.ListId">
+            <summary>
+            List
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.CategoryText">
+            <summary>
+            Category Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.CategoryDscr">
+            <summary>
+            Category Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategory.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateCategoryGrid">
+            <summary>
+            TemplateCategory Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategoryGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategoryGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateCategoryGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.TemplateCategory},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateList">
+            <summary>
+            TemplateList Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ListId">
+            <summary>
+            List
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.SetId">
+            <summary>
+            Set
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ListName">
+            <summary>
+            List Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ListDscr">
+            <summary>
+            List Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateList.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateListGrid">
+            <summary>
+            TemplateList Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateListGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateListGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateListGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.TemplateList},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateSet">
+            <summary>
+            TemplateSet Table
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.SetId">
+            <summary>
+            Set
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.SetName">
+            <summary>
+            Set Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.SetDscr">
+            <summary>
+            Set Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.OwnerName">
+            <summary>
+            Owner Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.ActiveInd">
+            <summary>
+            Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.CreateDateTime">
+            <summary>
+            Create Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.CreateUserName">
+            <summary>
+            Create User Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.ChangeDateTime">
+            <summary>
+            Change Date Time
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSet.ChangeUserName">
+            <summary>
+            Change User Name
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateSetGrid">
+            <summary>
+            TemplateSet Grid Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSetGrid.Total">
+            <summary>
+            Total Record Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSetGrid.Data">
+            <summary>
+            Data Records
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.TemplateSetGrid.ReturnMessageTxt">
+            <summary>
+            Return Message
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetGrid.#ctor">
+            <summary>
+            Initialize Model
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetGrid.#ctor(System.Collections.Generic.List{CheckListApp.Data.TemplateSet},System.Int32)">
+            <summary>
+            Initialize Model
+            </summary>
+            <param name="data">Data Records</param>
+            <param name="count">Total Record Count</param>
+        </member>
+        <member name="T:CheckListApp.Data.CheckActionViewModel">
+            <summary>
+            CheckAction View Model
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.ListName">
+            <summary>
+            List Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.CategoryId">
+            <summary>
+            Category Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.ListId">
+            <summary>
+            Category Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.CategoryText">
+            <summary>
+            Category Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.ActionId">
+            <summary>
+            Action Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.ActionText">
+            <summary>
+            Action Text
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.ActionDscr">
+            <summary>
+            Action Dscr
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.IsComplete">
+            <summary>
+            Is Complete
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckActionViewModel.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckListViewModel">
+            <summary>
+            CheckList View Model
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.SetId">
+            <summary>
+            Set Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.SetName">
+            <summary>
+            Set Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.SetDscr">
+            <summary>
+            Set Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.ListId">
+            <summary>
+            List Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.ListName">
+            <summary>
+            List Name
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.ListDscr">
+            <summary>
+            List Description
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.IsActive">
+            <summary>
+            Is Active
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.SortOrder">
+            <summary>
+            Sort Order
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.ActionsCount">
+            <summary>
+            Actions Count
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.ActionsComplete">
+            <summary>
+            Actions Complete
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CheckListViewModel.PercentComplete">
+            <summary>
+            Percent Complete
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CompletionViewModel">
+            <summary>
+            Action Completion View Model
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CompletionViewModel.ActionId">
+            <summary>
+            Action Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.CompletionViewModel.IsComplete">
+            <summary>
+            Is Complete
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ListStats">
+            <summary>
+            List Statistics
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ListStats.ListId">
+            <summary>
+            List Id
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ListStats.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ListStats.Completed">
+            <summary>
+            Completed
+            </summary>
+        </member>
+        <member name="P:CheckListApp.Data.ListStats.PercentComplete">
+            <summary>
+            Percent Complete
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckActionRepository">
+            <summary>
+            CheckAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.FindActionsForList(System.String,System.Int32)">
+            <summary>
+            Find All Actions for a List
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.Add(System.String,CheckListApp.Data.CheckAction)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.Save(System.String,CheckListApp.Data.CheckAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.SetCompletedFlag(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Set Completed Flag
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="completed">Is Task Completed?</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckActionRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckCategoryRepository">
+            <summary>
+            CheckCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.Add(System.String,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.Save(System.String,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckCategoryRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckListRepository">
+            <summary>
+            CheckList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.FindListsForSet(System.String,System.Int32)">
+            <summary>
+            Find All Lists for a Set
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.Add(System.String,CheckListApp.Data.CheckList)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.Save(System.String,CheckListApp.Data.CheckList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckListRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.CheckSetRepository">
+            <summary>
+            CheckSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.Add(System.String,CheckListApp.Data.CheckSet)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.Save(System.String,CheckListApp.Data.CheckSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.CheckSetRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateActionRepository">
+            <summary>
+            TemplateAction Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.Add(System.String,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.Save(System.String,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateActionRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateCategoryRepository">
+            <summary>
+            TemplateCategory Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.Add(System.String,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.Save(System.String,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateCategoryRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateListRepository">
+            <summary>
+            TemplateList Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.Add(System.String,CheckListApp.Data.TemplateList)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.Save(System.String,CheckListApp.Data.TemplateList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateListRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.TemplateSetRepository">
+            <summary>
+            TemplateSet Repository
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.#ctor(CheckListApp.Data.AppSettings,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+            Default initialization of this repository class.
+            </summary>
+            <param name="appSettings">Application Settings</param>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.Add(System.String,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.Save(System.String,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.TemplateSetRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ICheckActionRepository">
+            <summary>
+            CheckAction Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.FindActionsForList(System.String,System.Int32)">
+            <summary>
+            Find All Actions for a List
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.Add(System.String,CheckListApp.Data.CheckAction)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.Save(System.String,CheckListApp.Data.CheckAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="checkAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.SetCompletedFlag(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Set Completed Flag
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="completed">Is Task Completed?</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckActionRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ICheckCategoryRepository">
+            <summary>
+            CheckCategory Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.Add(System.String,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.Save(System.String,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="checkCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckCategoryRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ICheckListRepository">
+            <summary>
+            CheckList Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.FindListsForSet(System.String,System.Int32)">
+            <summary>
+            Find All Lists for a Set
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.Add(System.String,CheckListApp.Data.CheckList)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.Save(System.String,CheckListApp.Data.CheckList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="checkList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckListRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ICheckSetRepository">
+            <summary>
+            CheckSet Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.Add(System.String,CheckListApp.Data.CheckSet)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.Save(System.String,CheckListApp.Data.CheckSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.Save(System.String,System.Int32,CheckListApp.Data.CheckSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="checkSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ICheckSetRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ITemplateActionRepository">
+            <summary>
+            TemplateAction Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.Add(System.String,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.Save(System.String,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateAction)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="templateAction">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateActionRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ITemplateCategoryRepository">
+            <summary>
+            TemplateCategory Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.Add(System.String,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.Save(System.String,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateCategory)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="templateCategory">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateCategoryRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ITemplateListRepository">
+            <summary>
+            TemplateList Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.Add(System.String,CheckListApp.Data.TemplateList)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.Save(System.String,CheckListApp.Data.TemplateList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateList)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="templateList">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateListRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data.ITemplateSetRepository">
+            <summary>
+            TemplateSet Interface
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.FindAll(System.String)">
+            <summary>
+            Find All Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.FindGridRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Find Paged Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="searchTxt">Search Text</param>
+            <param name="skipNbr">Skip</param>
+            <param name="takeNbr">Take</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.FindOne(System.String,System.Int32)">
+            <summary>
+            Find One Records
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">id</param>
+            <returns>Records</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.DupCheck(System.Int32,System.String,System.String@,System.String@)">
+            <summary>
+            Duplicate Record Check
+            </summary>
+            <param name="keyValue">Key Value</param>
+            <param name="dscr">Description</param>
+            <param name="fieldName">Field Name</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.Add(System.String,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Add Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.DeleteCheck(System.String,System.Int32,System.String@)">
+            <summary>
+            Delete Check
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <param name="errorMessage">Message</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.Delete(System.String,System.Int32)">
+            <summary>
+            Delete Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Record Key</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.Save(System.String,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.Save(System.String,System.Int32,CheckListApp.Data.TemplateSet)">
+            <summary>
+            Save Record
+            </summary>
+            <param name="requestingUserName">Requesting UserName</param>
+            <param name="id">Id</param>
+            <param name="templateSet">Object</param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:CheckListApp.Data.ITemplateSetRepository.Dispose">
+            <summary>
+            Disposal
+            </summary>
+        </member>
+        <member name="T:CheckListApp.Data._BaseRepository">
+            <summary>
+            Base Repository
+            </summary>
+        </member>
+        <member name="F:CheckListApp.Data._BaseRepository.db">
+            <summary>
+            Database Entities
+            </summary>
+        </member>
+        <member name="F:CheckListApp.Data._BaseRepository.AppSettingsValues">
+            <summary>
+            Application Settings
+            </summary>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.GetConnectionStringValue(System.String)">
+            <summary>
+            reads the web.config file 
+            </summary>
+            <param name="settingName">Setting Name</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.GetConfigKeyValue(System.String)">
+            <summary>
+            Gets value from web.config file AppSettings section.
+            </summary>
+            <param name="settingName">Setting Name.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.WriteToLog(System.String)">
+            <summary>
+            Write value to log.
+            </summary>
+            <param name="msg">Message Text.</param>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.WriteSevereError(System.String)">
+            <summary>
+            Write value to log.
+            </summary>
+            <param name="msg">Message Text.</param>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.WriteSevereError(System.String,System.String,System.String)">
+            <summary>
+            Write value to log.
+            </summary>
+            <param name="msg">Message Text.</param>
+            <param name="url">URL for the page with an error.</param>
+            <param name="userName">User Name.</param>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.WriteSevereError(System.String,System.String,System.String,System.String)">
+            <summary>
+            Write value to log.
+            </summary>
+            <param name="subjectText">Subject of email.</param>
+            <param name="msg">Message Text.</param>
+            <param name="url">URL for the page with an error.</param>
+            <param name="userName">User Name.</param>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.DateifyFileName(System.String)">
+            <summary>
+            Convert file name to format that contains date as numbers.
+            </summary>
+            <param name="parmFileName">File Name to be changed.</param>
+            <returns>File Name.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.GetExceptionMessage(System.Exception)">
+            <summary>
+            Gets inner exception message.
+            </summary>
+            <param name="ex">The Exception.</param>
+            <returns>The Full Message.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CStrNull(System.Object)">
+            <summary>
+            Returns a string.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CStrNull(System.Object,System.String)">
+            <summary>
+            Returns a string.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <param name="dflt">Default value.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CDecNull(System.Object)">
+            <summary>
+            Returns a decimal.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CDecNull(System.Object,System.Decimal)">
+            <summary>
+            Returns a decimal.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <param name="dflt">Default value.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CIntNull(System.Object)">
+            <summary>
+            Returns an integer.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CIntNull(System.Object,System.Int32)">
+            <summary>
+            Returns an integer.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <param name="dflt">Default value.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CDateNull(System.Object)">
+            <summary>
+            Returns a DateTime object.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CDateNull(System.Object,System.DateTime)">
+            <summary>
+            Returns a DateTime object.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <param name="dflt">Default value.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.CGuidNull(System.Object)">
+            <summary>
+            Returns an Guid.
+            </summary>
+            <param name="o">Input parameter.</param>
+            <returns>Return value.</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.ExecuteScalar(System.String,System.Data.SqlClient.SqlParameter[],System.Data.CommandType,System.String@)">
+            <summary>
+            Execute SQL command and return value
+            </summary>
+            <param name="mySQL">SQL</param>
+            <param name="sqlParams">Parameters</param>
+            <param name="cmdType">Type of command</param>
+            <param name="errorMsg">Error Message</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.ExecuteScalarAsync(System.String,System.Data.SqlClient.SqlParameter[],System.Data.CommandType)">
+            <summary>
+            Execute SQL command and return value
+            </summary>
+            <param name="mySQL">SQL</param>
+            <param name="sqlParams">Parameters</param>
+            <param name="cmdType">Type of command</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.ExecuteDataset(System.String,System.Data.SqlClient.SqlParameter[],System.Data.CommandType,System.String@)">
+            <summary>
+            Execute SQL command and return a dataset
+            </summary>
+            <param name="mySQL">SQL</param>
+            <param name="sqlParams">Parameters</param>
+            <param name="cmdType">Type of command</param>
+            <param name="errorMsg">Error Message</param>
+            <returns>Dataset</returns>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.AttachParameters(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Attach parameters to command
+            </summary>
+            <param name="command">Command object</param>
+            <param name="commandParameters">Parameters</param>
+        </member>
+        <member name="M:CheckListApp.Data._BaseRepository.ParamValuesString(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Create string from parameter values for logging
+            </summary>
+            <param name="sqlParams">SQL Parameters</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Check2.Startup.ConfigureDatabase(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>Configures the database.</summary>
+            <param name="services">The services.</param>
+        </member>
+    </members>
+</doc>

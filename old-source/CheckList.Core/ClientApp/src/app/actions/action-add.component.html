@@ -1,0 +1,32 @@
+<div class="loading" *ngIf="!selectedList">Loading&#8230;</div>
+<h1>
+  <a *ngIf="selectedList" (click)="returnToList()"><i class="fas fa-arrow-circle-left"></i></a>
+  <span *ngIf="selectedList"> {{ selectedList.listName }} </span>
+</h1>
+
+<h2>Create New Action</h2>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="addForm" novalidate>
+      <div class="form-group">
+        <label class="col-md-4">Category:</label>
+        <input type="text" class="form-control" formControlName="categoryText" #categoryText />
+      </div>
+      <div *ngIf="addForm.controls['categoryText'].invalid && (addForm.controls['categoryText'].dirty || addForm.controls['categoryText'].touched)" class="alert alert-danger">
+        <div *ngIf="addForm.controls['categoryText'].errors.required">Category Name is required.</div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Action:</label>
+        <input type="text" class="form-control" autofocus formControlName="actionText" #actionText />
+      </div>
+      <div *ngIf="addForm.controls['actionText'].invalid && (addForm.controls['actionText'].dirty || addForm.controls['actionText'].touched)" class="alert alert-danger">
+        <div *ngIf="addForm.controls['actionText'].errors.required">Action is required.</div>
+      </div>
+      <div class="form-group">
+        <button (click)="addAction()" [disabled]="addForm.pristine || addForm.invalid" class="btn btn-primary" accesskey="a"><u>A</u>dd</button>
+        <button (click)="returnToList()" class="btn btn-default" style="margin-left: 5px;">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

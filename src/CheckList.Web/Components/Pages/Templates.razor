@@ -1,6 +1,6 @@
 @page "/templates"
 @attribute [Authorize]
-@inject CheckListApiClient ApiClient
+@inject ITemplateSetRepository TemplateRepo
 @inject NavigationManager NavigationManager
 
 <PageTitle>Templates</PageTitle>
@@ -37,5 +37,7 @@
     private List<TemplateSetDto>? _templates;
 
     protected override async Task OnInitializedAsync()
-        => _templates = await ApiClient.GetTemplatesAsync();
+        => _templates = (await TemplateRepo.GetAllAsync())
+            .Select(s => new TemplateSetDto(s.Id, s.SetName, s.SetDscr, s.SortOrder))
+            .ToList();
 }

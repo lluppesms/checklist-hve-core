@@ -1,6 +1,7 @@
 @page "/sets/{Id:int}"
 @attribute [Authorize]
-@inject CheckListApiClient ApiClient
+@inject ICheckSetRepository SetRepo
+@inject ICheckListRepository ListRepo
 @inject NavigationManager NavigationManager
 
 <PageTitle>Set Detail</PageTitle>
@@ -38,7 +39,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _set = await ApiClient.GetSetAsync(Id);
-        _lists = await ApiClient.GetListsAsync(Id);
+        var set = await SetRepo.GetByIdAsync(Id);
+        if (set is not null)
+            _set = new CheckSetDto(set.Id, set.SetName, set.SetDscr, set.OwnerName, set.ActiveInd, set.SortOrder, set.CreateDateTime);
+        _lists = (await ListRepo.GetBySetAsync(Id))
+            .Select(l => new CheckListDto(l.Id, l.SetId, l.ListName, l.ListDscr, l.ActiveInd, l.SortOrder))
+            .ToList();
     }
 }

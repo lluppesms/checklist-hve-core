@@ -1,6 +1,8 @@
 @page "/sets"
 @attribute [Authorize]
-@inject CheckListApiClient ApiClient
+@inject ICheckSetRepository SetRepo
+@inject ITemplateSetRepository TemplateRepo
+@inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
 <PageTitle>My Check Sets</PageTitle>
@@ -76,8 +78,46 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _sets = await ApiClient.GetSetsAsync();
-        _templates = await ApiClient.GetTemplatesAsync();
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+        var owner = auth.User.Identity?.Name ?? string.Empty;
+        _sets = (await SetRepo.GetByOwnerAsync(owner))
+            .Select(s => new CheckSetDto(s.Id, s.SetName, s.SetDscr, s.OwnerName, s.ActiveInd, s.SortOrder, s.CreateDateTime))
+            .ToList();
+        _templates = (await TemplateRepo.GetAllAsync())
+            .Select(s => new TemplateSetDto(s.Id, s.SetName, s.SetDscr, s.SortOrder))
+            .ToList();
+    }
+
+    private void ShowCreateModal()
+    {
+        _newSetName = string.Empty;
+        _selectedTemplateId = 0;
+        _showCreateModal = true;
+    }
+
+    private async Task CreateSet()
+    {
+        if (string.IsNullOrWhiteSpace(_newSetName) || _selectedTemplateId == 0) return;
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+        var owner = auth.User.Identity?.Name ?? string.Empty;
+        var entity = new CheckSet
+        {
+            SetName = _newSetName,
+            OwnerName = owner,
+            TemplateSetId = _selectedTemplateId
+        };
+        var created = await SetRepo.CreateAsync(entity);
+        _sets ??= [];
+        _sets.Add(new CheckSetDto(created.Id, created.SetName, created.SetDscr, created.OwnerName, created.ActiveInd, created.SortOrder, created.CreateDateTime));
+        _showCreateModal = false;
+    }
+
+    private async Task DeleteSet(int id)
+    {
+        await SetRepo.DeleteAsync(id);
+        _sets?.RemoveAll(s => s.Id == id);
+    }
+}
     }
 
     private void ShowCreateModal()

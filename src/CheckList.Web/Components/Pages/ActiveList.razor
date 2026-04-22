@@ -2,8 +2,11 @@
 @attribute [Authorize]
 @implements IAsyncDisposable
 @inject NavigationManager NavigationManager
-@inject CheckListApiClient ApiClient
-@inject IConfiguration Configuration
+@inject ICheckCategoryRepository CategoryRepo
+@inject ICheckActionRepository ActionRepo
+@inject ICheckListRepository ListRepo
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IHubContext<CheckListHub, ICheckListHubClient> HubContext
 @using Microsoft.AspNetCore.SignalR.Client
 
 <PageTitle>Active List</PageTitle>
@@ -44,17 +47,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _categories = await ApiClient.GetCategoriesAsync(ListId);
+        // Load list name and categories directly from repositories
+        var list = await ListRepo.GetByIdAsync(ListId);
+        _listName = list?.ListName;
 
-        // Resolve the API base URL via Aspire service discovery configuration.
-        // In Aspire dev: Configuration["services:api:https:0"] is injected by Aspire.
-        // In production single App Service: fall back to NavigationManager origin.
-        var apiBaseUrl = Configuration["services:api:https:0"]
-                      ?? Configuration["services:api:http:0"]
-                      ?? NavigationManager.BaseUri.TrimEnd('/');
+        var cats = await CategoryRepo.GetByListAsync(ListId);
+        _categories = [];
+        foreach (var cat in cats)
+        {
+            var actions = await ActionRepo.GetByCategoryAsync(cat.Id) ?? [];
+            _categories.Add(new CheckCategoryDto(
+                cat.Id, cat.ListId, cat.CategoryText, cat.CategoryDscr, cat.SortOrder,
+                actions.Select(a => new CheckActionDto(
+                    a.Id, a.CategoryId, a.ListId, a.SetId,
+                    a.ActionText, a.ActionDscr,
+                    a.CompleteInd, a.CompletedBy, a.CompletedAt, a.SortOrder)).ToList()));
+        }
 
+        // SignalR hub is in the same app — use origin directly
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl($"{apiBaseUrl}/hubs/checklist")
+            .WithUrl(NavigationManager.ToAbsoluteUri("/hubs/checklist"))
             .WithAutomaticReconnect()
             .Build();
 
@@ -84,7 +96,14 @@
     }
 
     private async Task ToggleAction(int actionId)
-        => await ApiClient.ToggleActionAsync(actionId);
+    {
+        var auth = await AuthStateProvider.GetAuthenticationStateAsync();
+        var userId = auth.User.Identity?.Name ?? string.Empty;
+        var action = await ActionRepo.ToggleCompleteAsync(actionId, userId);
+        if (action is null) return;
+        var update = new ActionUpdateDto(action.SetId, action.ListId, action.Id, action.CompleteInd, action.CompletedBy, action.CompletedAt);
+        await HubContext.Clients.Group($"set-{update.SetId}").ReceiveActionUpdate(update);
+    }
 
     public async ValueTask DisposeAsync()
     {

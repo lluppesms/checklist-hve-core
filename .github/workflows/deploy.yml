@@ -1,0 +1,101 @@
+name: Deploy to Azure
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install Aspire workload
+        run: dotnet workload install aspire
+
+      - name: Restore workloads
+        run: dotnet workload restore
+
+      - name: Build EF migrations bundle
+        run: dotnet ef migrations bundle --project src/CheckList.Api --output ./efmigrations/efbundle --self-contained
+        env:
+          DOTNET_ROLL_FORWARD: Major
+
+      - name: Upload EF migrations bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: efmigrations
+          path: ./efmigrations/efbundle
+
+  deploy-infra:
+    needs: build-schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Bicep infrastructure
+        uses: azure/arm-deploy@v2
+        with:
+          resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP }}
+          template: ./infra/bicep/main.bicep
+          parameters: environmentName=${{ vars.ENVIRONMENT_NAME }} appName=checklist
+
+  deploy-schema:
+    needs: deploy-infra
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download EF migrations bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: efmigrations
+          path: ./efmigrations
+
+      - name: Run EF migrations (Identity tables)
+        run: |
+          chmod +x ./efmigrations/efbundle
+          ./efmigrations/efbundle --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
+
+  deploy-app:
+    needs: deploy-schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install Aspire workload
+        run: dotnet workload install aspire
+
+      - name: Publish API
+        run: dotnet publish src/CheckList.Api/CheckList.Api.csproj -c Release -o ./publish/api
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_APP_NAME }}
+          package: './publish/api'

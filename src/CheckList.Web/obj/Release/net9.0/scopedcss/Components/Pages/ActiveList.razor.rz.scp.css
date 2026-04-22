@@ -1,0 +1,12 @@
+.category-header[b-9r2ygt7jrt] {
+    background-color: var(--bs-secondary-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-section[b-9r2ygt7jrt] {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+}

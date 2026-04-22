@@ -1,0 +1,44 @@
+@page "/sets/{Id:int}"
+@attribute [Authorize]
+@inject CheckListApiClient ApiClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Set Detail</PageTitle>
+
+<div class="container-fluid">
+    @if (_set is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <h2>@_set.SetName</h2>
+        <p class="text-muted">@_set.SetDscr</p>
+
+        <div class="list-group mt-3">
+            @foreach (var list in _lists)
+            {
+                <a href="sets/@Id/lists/@list.Id" class="list-group-item list-group-item-action">
+                    <strong>@list.ListName</strong>
+                    @if (!string.IsNullOrWhiteSpace(list.ListDscr))
+                    {
+                        <br /><small class="text-muted">@list.ListDscr</small>
+                    }
+                </a>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private CheckSetDto? _set;
+    private List<CheckListDto> _lists = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _set = await ApiClient.GetSetAsync(Id);
+        _lists = await ApiClient.GetListsAsync(Id);
+    }
+}

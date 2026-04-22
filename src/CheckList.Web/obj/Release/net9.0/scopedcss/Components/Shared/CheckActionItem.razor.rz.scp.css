@@ -1,0 +1,8 @@
+.check-action-row[b-pyeokue3hr] {
+    border-bottom: 1px solid var(--bs-border-color-translucent);
+    padding-block: 0.375rem;
+}
+
+.check-action-row:last-child[b-pyeokue3hr] {
+    border-bottom: none;
+}

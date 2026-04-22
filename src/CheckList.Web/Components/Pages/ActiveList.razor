@@ -1,0 +1,97 @@
+@page "/sets/{SetId:int}/lists/{ListId:int}"
+@attribute [Authorize]
+@implements IAsyncDisposable
+@inject NavigationManager NavigationManager
+@inject CheckListApiClient ApiClient
+@inject IConfiguration Configuration
+@using Microsoft.AspNetCore.SignalR.Client
+
+<PageTitle>Active List</PageTitle>
+
+<div class="container-fluid">
+    <h2>@(string.IsNullOrEmpty(_listName) ? "Loading…" : _listName)</h2>
+
+    @if (_categories is null)
+    {
+        <p>Loading checklist items…</p>
+    }
+    else if (!_categories.Any())
+    {
+        <p class="text-muted">No items found for this list.</p>
+    }
+    else
+    {
+        @foreach (var cat in _categories)
+        {
+            <div class="category-section mb-3">
+                <h5 class="category-header">@cat.CategoryText</h5>
+                @foreach (var action in cat.Actions)
+                {
+                    <CheckActionItem Action="action" OnToggle="ToggleAction" />
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public int SetId { get; set; }
+    [Parameter] public int ListId { get; set; }
+
+    private string? _listName;
+    private List<CheckCategoryDto>? _categories;
+    private HubConnection? _hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _categories = await ApiClient.GetCategoriesAsync(ListId);
+
+        // Resolve the API base URL via Aspire service discovery configuration.
+        // In Aspire dev: Configuration["services:api:https:0"] is injected by Aspire.
+        // In production single App Service: fall back to NavigationManager origin.
+        var apiBaseUrl = Configuration["services:api:https:0"]
+                      ?? Configuration["services:api:http:0"]
+                      ?? NavigationManager.BaseUri.TrimEnd('/');
+
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl($"{apiBaseUrl}/hubs/checklist")
+            .WithAutomaticReconnect()
+            .Build();
+
+        _hubConnection.On<ActionUpdateDto>("ReceiveActionUpdate", update =>
+        {
+            if (_categories is null) return;
+
+            foreach (var cat in _categories)
+            {
+                var idx = cat.Actions.IndexOf(cat.Actions.FirstOrDefault(a => a.Id == update.ActionId)!);
+                if (idx >= 0)
+                {
+                    cat.Actions[idx] = cat.Actions[idx] with
+                    {
+                        CompleteInd = update.CompleteInd,
+                        CompletedBy = update.CompletedBy,
+                        CompletedAt = update.CompletedAt
+                    };
+                    InvokeAsync(StateHasChanged);
+                    break;
+                }
+            }
+        });
+
+        await _hubConnection.StartAsync();
+        await _hubConnection.SendAsync("JoinSet", SetId.ToString());
+    }
+
+    private async Task ToggleAction(int actionId)
+        => await ApiClient.ToggleActionAsync(actionId);
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection is not null)
+        {
+            await _hubConnection.SendAsync("LeaveSet", SetId.ToString());
+            await _hubConnection.DisposeAsync();
+        }
+    }
+}

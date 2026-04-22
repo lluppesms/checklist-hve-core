@@ -1,0 +1,18 @@
+<div class="d-flex align-items-center gap-2 py-1 check-action-row">
+    <input type="checkbox"
+           class="form-check-input flex-shrink-0"
+           checked="@(Action.CompleteInd?.Trim() == "Y")"
+           @onchange="() => OnToggle.InvokeAsync(Action.Id)" />
+    <span class="flex-grow-1 @(Action.CompleteInd?.Trim() == "Y" ? "text-decoration-line-through text-muted" : "")">
+        @Action.ActionText
+    </span>
+    @if (!string.IsNullOrWhiteSpace(Action.CompletedBy))
+    {
+        <small class="text-muted ms-auto text-nowrap">@Action.CompletedBy</small>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public CheckActionDto Action { get; set; } = default!;
+    [Parameter, EditorRequired] public EventCallback<int> OnToggle { get; set; }
+}

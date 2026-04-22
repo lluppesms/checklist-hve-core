@@ -1,0 +1,41 @@
+@page "/templates"
+@attribute [Authorize]
+@inject CheckListApiClient ApiClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Templates</PageTitle>
+
+<div class="container-fluid">
+    <h2>Check Set Templates</h2>
+
+    @if (_templates is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+            @foreach (var tmpl in _templates)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@tmpl.SetName</h5>
+                            <p class="card-text text-muted">@tmpl.SetDscr</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="sets?templateId=@tmpl.Id" class="btn btn-sm btn-primary">Use This Template</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<TemplateSetDto>? _templates;
+
+    protected override async Task OnInitializedAsync()
+        => _templates = await ApiClient.GetTemplatesAsync();
+}

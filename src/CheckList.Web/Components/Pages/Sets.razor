@@ -1,0 +1,107 @@
+@page "/sets"
+@attribute [Authorize]
+@inject CheckListApiClient ApiClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>My Check Sets</PageTitle>
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>My Check Sets</h2>
+        <button class="btn btn-primary" @onclick="ShowCreateModal">New Set</button>
+    </div>
+
+    @if (_sets is null)
+    {
+        <p>Loading...</p>
+    }
+    else if (!_sets.Any())
+    {
+        <p class="text-muted">No check sets found. Create one from a template.</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+            @foreach (var set in _sets)
+            {
+                <div class="col">
+                    <SetCard Set="set" OnDelete="DeleteSet" />
+                </div>
+            }
+        </div>
+    }
+
+    @if (_showCreateModal)
+    {
+        <div class="modal show d-block" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Check Set</h5>
+                        <button type="button" class="btn-close" @onclick="() => _showCreateModal = false"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Set Name</label>
+                            <input class="form-control" @bind="_newSetName" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Template</label>
+                            <select class="form-select" @bind="_selectedTemplateId">
+                                <option value="0">Select a template…</option>
+                                @foreach (var t in _templates)
+                                {
+                                    <option value="@t.Id">@t.SetName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" @onclick="() => _showCreateModal = false">Cancel</button>
+                        <button class="btn btn-primary" @onclick="CreateSet">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    }
+</div>
+
+@code {
+    private List<CheckSetDto>? _sets;
+    private List<TemplateSetDto> _templates = [];
+    private bool _showCreateModal;
+    private string _newSetName = string.Empty;
+    private int _selectedTemplateId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _sets = await ApiClient.GetSetsAsync();
+        _templates = await ApiClient.GetTemplatesAsync();
+    }
+
+    private void ShowCreateModal()
+    {
+        _newSetName = string.Empty;
+        _selectedTemplateId = 0;
+        _showCreateModal = true;
+    }
+
+    private async Task CreateSet()
+    {
+        if (string.IsNullOrWhiteSpace(_newSetName) || _selectedTemplateId == 0) return;
+        var created = await ApiClient.CreateSetAsync(new CreateCheckSetRequest(_newSetName, null, _selectedTemplateId));
+        if (created is not null)
+        {
+            _sets ??= [];
+            _sets.Add(created);
+            _showCreateModal = false;
+        }
+    }
+
+    private async Task DeleteSet(int id)
+    {
+        await ApiClient.DeleteSetAsync(id);
+        _sets?.RemoveAll(s => s.Id == id);
+    }
+}

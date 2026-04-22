@@ -1,0 +1,12 @@
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\bin\Debug\net9.0\CheckList.Shared.deps.json
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\bin\Debug\net9.0\CheckList.Shared.dll
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\bin\Debug\net9.0\CheckList.Shared.pdb
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.AssemblyInfoInputs.cache
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.AssemblyInfo.cs
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.csproj.CoreCompileInputs.cache
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.sourcelink.json
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.dll
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\refint\CheckList.Shared.dll
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\CheckList.Shared.pdb
+C:\ghcp\agents\checklist-hve-core\src\CheckList.Shared\obj\Debug\net9.0\ref\CheckList.Shared.dll

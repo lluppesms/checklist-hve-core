@@ -1,0 +1,74 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Workflow 1: Deploy Azure Bicep Infrastructure Only
+#------------------------------------------------------------------------------------------------------------------------------
+# FYI: You need to set up some secrets before running this workflow - see README.md for details.
+#   AZURE_CLIENT_ID        - Azure service principal / workload identity client ID
+#   AZURE_TENANT_ID        - Azure tenant ID
+#   AZURE_SUBSCRIPTION_ID  - Azure subscription ID
+#
+# Required GitHub Variables (set per environment):
+#   APP_NAME                 - Application name prefix
+#   INSTANCE_NUMBER          - Instance number (e.g., 1)
+#   RESOURCE_GROUP_PREFIX    - Resource group name prefix
+#   RESOURCE_GROUP_NAME      - Full resource group name (optional override)
+#   RESOURCE_GROUP_LOCATION  - Azure region (e.g., eastus)
+#   ENVCODE                  - Short environment code (dev, qa, prod)
+#   SQL_DATABASE_NAME        - SQL database name
+#   SQL_SERVER_NAME_PREFIX   - SQL server name prefix
+#   KEYVAULT_OWNER_USERID    - Key Vault owner object ID
+#   SQLADMIN_LOGIN_USERID    - SQL admin Entra ID user display name
+#   SQLADMIN_LOGIN_USERSID   - SQL admin Entra ID user object SID
+#   SQLADMIN_LOGIN_TENANTID  - SQL admin Entra ID tenant ID
+#   LOGIN_INSTANCEENDPOINT   - Entra ID login instance endpoint
+#   LOGIN_TENANTID           - Entra ID tenant ID
+#   LOGIN_CLIENTID           - App registration client ID
+#   LOGIN_DOMAIN             - Entra ID domain
+#------------------------------------------------------------------------------------------------------------------------------
+name: 1-deploy-bicep
+run-name: 1 - Deploy Bicep (${{ github.event.inputs.deployEnvironment }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployEnvironment:
+        description: Target Environment
+        required: true
+        type: environment
+        default: 'dev'
+      bicepDeploymentMode:
+        description: Bicep Deploy Mode (create/whatIf)
+        required: true
+        default: create
+        type: choice
+        options:
+          - create
+          - whatIf
+      deploymentType:
+        description: Deployment Type
+        required: false
+        default: webapp
+        type: choice
+        options:
+          - webapp
+      createResourceGroup:
+        description: Create Resource Group?
+        required: false
+        default: false
+        type: boolean
+
+#------------------------------------------------------------------------------------------------------------------------------
+jobs:
+  deploy-infra:
+    name: Deploy ${{ github.event.inputs.deployEnvironment }} Infrastructure
+    uses: ./.github/workflows/template-bicep-deploy.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      templatePath: './infra/Bicep/'
+      templateFile: 'main.bicep'
+      parameterFile: 'main.bicepparam'
+      parameterFileReplaceTokens: 'true'
+      deploymentType: ${{ github.event.inputs.deploymentType }}
+      createResourceGroup: ${{ github.event.inputs.createResourceGroup == 'true' }}
+      bicepDeploymentMode: ${{ github.event.inputs.bicepDeploymentMode }}
+    secrets: inherit

@@ -1,0 +1,109 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Stage Template: Bicep + Web App Build and Deploy Stages
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: environments
+    type: object
+    default:
+      - envCode: dev
+        envName: DEV
+  - name: azureServiceConnection
+    type: string
+  - name: dotnetVersion
+    type: string
+    default: '9.0.x'
+  - name: appFolderName
+    type: string
+    default: 'src/CheckList.Web/'
+  - name: appProjectName
+    type: string
+    default: 'CheckList.Web'
+  - name: testProjectName
+    type: string
+    default: 'CheckList.Tests'
+  - name: bicepPath
+    type: string
+    default: 'infra/Bicep/'
+  - name: bicepFile
+    type: string
+    default: 'main.bicep'
+  - name: bicepParamsFile
+    type: string
+    default: 'main.bicepparam'
+  - name: deploymentMode
+    type: string
+    default: 'create'
+  - name: deploymentType
+    type: string
+    default: 'webapp'
+  - name: runTests
+    type: boolean
+    default: false
+
+#------------------------------------------------------------------------------------------------------------------------
+stages:
+  - stage: ScanApplication
+    displayName: 'Scan Application'
+    pool:
+      vmImage: 'ubuntu-latest'
+    jobs:
+      - job: ScanCode
+        displayName: 'Scan Code'
+        steps:
+          - checkout: self
+
+          - task: UseDotNet@2
+            displayName: 'Install .NET ${{ parameters.dotnetVersion }}'
+            inputs:
+              version: ${{ parameters.dotnetVersion }}
+
+          - script: dotnet workload install aspire
+            displayName: 'Install Aspire Workload'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Build for Scanning'
+            inputs:
+              command: 'build'
+              projects: 'checklist-hve-core.sln'
+              arguments: '--configuration Release'
+
+  - stage: BuildWebApp
+    displayName: 'Build Web App'
+    dependsOn: ScanApplication
+    pool:
+      vmImage: 'ubuntu-latest'
+    jobs:
+      - template: ../jobs/webapp-build-job.yml
+        parameters:
+          dotnetVersion: ${{ parameters.dotnetVersion }}
+          appFolderName: ${{ parameters.appFolderName }}
+          appProjectName: ${{ parameters.appProjectName }}
+          testProjectName: ${{ parameters.testProjectName }}
+          runTests: ${{ parameters.runTests }}
+
+  - ${{ each env in parameters.environments }}:
+    - stage: CreateInfrastructure${{ env.envName }}
+      displayName: 'Create ${{ env.envName }} Infrastructure'
+      dependsOn: BuildWebApp
+      jobs:
+        - template: ../jobs/bicep-deploy-job.yml
+          parameters:
+            envCode: ${{ env.envCode }}
+            envName: ${{ env.envName }}
+            azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            bicepPath: ${{ parameters.bicepPath }}
+            bicepFile: ${{ parameters.bicepFile }}
+            bicepParamsFile: ${{ parameters.bicepParamsFile }}
+            deploymentMode: ${{ parameters.deploymentMode }}
+            deploymentType: ${{ parameters.deploymentType }}
+
+    - stage: Deploy${{ env.envName }}WebApp
+      displayName: 'Deploy ${{ env.envName }} Web App'
+      dependsOn: CreateInfrastructure${{ env.envName }}
+      jobs:
+        - template: ../jobs/webapp-deploy-job.yml
+          parameters:
+            envCode: ${{ env.envCode }}
+            envName: ${{ env.envName }}
+            azureServiceConnection: ${{ parameters.azureServiceConnection }}

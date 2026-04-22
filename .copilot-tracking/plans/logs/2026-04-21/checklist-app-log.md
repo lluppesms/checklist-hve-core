@@ -201,10 +201,7 @@ Items identified during planning that fall outside current scope.
   * Dependency: Phase 2A (repositories) and Phase 3 (endpoint)
   * Priority: high — this is core to the app's value proposition (use pre-built RV checklists)
 
-* WI-06: Verify dadabase.demo pipeline and Bicep patterns by fetching the reference repo and aligning file structure.
-  * Source: DR-02 (unverified reference pattern)
-  * Dependency: None
-  * Priority: low
+* WI-06: ~~Verify dadabase.demo pipeline and Bicep patterns by fetching the reference repo and aligning file structure.~~ **COMPLETED** — All GitHub Actions, ADO pipelines, and Bicep structure fully aligned with dadabase.demo golden code patterns.
 
 * WI-07 (Phase 3–5): Implement `GetCategoriesAsync` — Add `GET /api/lists/{id}/categories` endpoint returning full category + action hierarchy; update `CheckListApiClient.GetCategoriesAsync` stub; wire `ActiveList.razor` to render the returned categories (high priority — blocks live checklist rendering)
   * Source: Phase 4 stub (ActiveList.razor returns empty `[]` for categories)
@@ -214,10 +211,7 @@ Items identified during planning that fall outside current scope.
   * Source: Phase 4
   * Dependency: WI-07 or new `GetListAsync(listId)` endpoint
 
-* WI-09 (Phase 2B): Add `- checkout: self` to ADO `DeployApp` deployment job to resolve NEW-M-03 (missing source in deployment job)
-  * Source: Planning log NEW-M-03
-  * Dependency: None
-  * Priority: medium — ADO deploy pipeline fails without this
+* WI-09 (Phase 2B): ~~Add `- checkout: self` to ADO `DeployApp` deployment job~~ **COMPLETED** — ADO pipelines replaced with new `.azdo/` golden code structure using deployment jobs pattern.
 
 * WI-10 (Phase 2B): Remove orphaned `dotnet publish` of Web project from GitHub Actions `deploy-app` job (NEW-MI-02)
   * Source: Planning log NEW-MI-02

@@ -1,0 +1,88 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Job Template: Deploy Bicep Infrastructure
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: envCode
+    type: string
+  - name: envName
+    type: string
+  - name: azureServiceConnection
+    type: string
+  - name: bicepPath
+    type: string
+    default: 'infra/Bicep/'
+  - name: bicepFile
+    type: string
+    default: 'main.bicep'
+  - name: bicepParamsFile
+    type: string
+    default: 'main.bicepparam'
+  - name: deploymentMode
+    type: string
+    default: 'create'
+  - name: deploymentType
+    type: string
+    default: 'webapp'
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  - deployment: DeployBicep
+    displayName: 'Deploy Bicep to ${{ parameters.envName }}'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: ${{ parameters.envName }}
+    variables:
+      - group: Checklist.Demo
+      - name: generatedResourceGroupName
+        value: '$(RESOURCE_GROUP_PREFIX)-${{ parameters.envCode }}-$(INSTANCE_NUMBER)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+              displayName: 'Checkout Repository'
+
+            - task: replacetokens@6
+              displayName: 'Replace Tokens in Bicep Params'
+              inputs:
+                sources: '${{ parameters.bicepPath }}${{ parameters.bicepParamsFile }}'
+                tokenPattern: 'rm'
+                missingVarLog: 'warn'
+
+            - task: AzureCLI@2
+              displayName: 'Create Resource Group'
+              condition: eq(variables.CREATE_RESOURCE_GROUP, 'true')
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  az group create --name $(generatedResourceGroupName) --location $(RESOURCE_GROUP_LOCATION) --tags Environment=${{ parameters.envCode }}
+
+            - task: AzureCLI@2
+              displayName: 'What-If Analysis'
+              condition: eq('${{ parameters.deploymentMode }}', 'whatIf')
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  az deployment group what-if \
+                    --resource-group $(generatedResourceGroupName) \
+                    --template-file ${{ parameters.bicepPath }}${{ parameters.bicepFile }} \
+                    --parameters @${{ parameters.bicepPath }}${{ parameters.bicepParamsFile }} \
+                    --no-prompt true
+
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: 'Deploy Bicep (${{ parameters.deploymentMode }})'
+              condition: ne('${{ parameters.deploymentMode }}', 'whatIf')
+              inputs:
+                deploymentScope: 'Resource Group'
+                azureResourceManagerConnection: ${{ parameters.azureServiceConnection }}
+                resourceGroupName: $(generatedResourceGroupName)
+                location: $(RESOURCE_GROUP_LOCATION)
+                templateLocation: 'Linked artifact'
+                csmFile: '${{ parameters.bicepPath }}${{ parameters.bicepFile }}'
+                csmParametersFile: '${{ parameters.bicepPath }}${{ parameters.bicepParamsFile }}'
+                deploymentMode: ${{ eq(parameters.deploymentMode, 'create') && 'Incremental' || 'Validation' }}

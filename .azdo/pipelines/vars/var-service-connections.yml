@@ -1,0 +1,37 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# Service Connections for all pipelines
+# Note: Service connection names must be hard-coded here because they
+#   are evaluated at compile time before runtime variables are available.
+#
+# Checklist.Demo variable group must be configured in ADO with:
+#   ARM_CLIENT_ID          - Azure Service Principal Client ID
+#   ARM_TENANT_ID          - Azure Tenant ID
+#   ARM_SUBSCRIPTION_ID    - Azure Subscription ID
+#   AzureServiceConnection - Azure DevOps Service Connection Name
+#   SQL_SERVER_NAME_PREFIX - SQL server name prefix
+#   SQL_DATABASE_NAME      - SQL database name
+#   INSTANCE_NUMBER        - Instance number
+#   RESOURCE_GROUP_PREFIX  - Resource group prefix
+#   RESOURCE_GROUP_LOCATION - Azure region
+#   KEYVAULT_OWNER_USERID  - Key Vault owner object ID
+#   SQLADMIN_LOGIN_USERID  - SQL admin Entra ID user display name
+#   SQLADMIN_LOGIN_USERSID - SQL admin Entra ID user object SID
+#   SQLADMIN_LOGIN_TENANTID - SQL admin Entra ID tenant ID
+#   LOGIN_INSTANCEENDPOINT - Entra ID login instance endpoint
+#   LOGIN_TENANTID         - Entra ID tenant ID
+#   LOGIN_CLIENTID         - App registration client ID
+#   LOGIN_DOMAIN           - Entra ID domain
+#
+# Checklist.Demo.Secrets variable group must be configured in ADO with:
+#   SQL_ADMIN_USER         - SQL admin username (for local SQL auth)
+#   SQL_ADMIN_PASSWORD     - SQL admin password (for local SQL auth)
+#   AZURE_CLIENT_SECRET    - Azure client secret (optional, for secret-based auth)
+#------------------------------------------------------------------------------------------------------------------------
+variables:
+  - name: azureServiceConnection
+    value: 'Checklist-Azure-Service-Connection'
+  - name: variableGroupName
+    value: 'Checklist.Demo'
+  - name: variableGroupSecretsName
+    value: 'Checklist.Demo.Secrets'

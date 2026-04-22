@@ -1,0 +1,86 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Job Template: Build Web App
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: envCode
+    type: string
+    default: 'dev'
+  - name: dotnetVersion
+    type: string
+    default: '9.0.x'
+  - name: appFolderName
+    type: string
+    default: 'src/CheckList.Web/'
+  - name: appProjectName
+    type: string
+    default: 'CheckList.Web'
+  - name: testProjectName
+    type: string
+    default: 'CheckList.Tests'
+  - name: artifactName
+    type: string
+    default: 'webapp'
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+  - name: runTests
+    type: boolean
+    default: false
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  - job: BuildWebApp
+    displayName: 'Build Web App'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+        displayName: 'Checkout Repository'
+
+      - task: UseDotNet@2
+        displayName: 'Install .NET ${{ parameters.dotnetVersion }}'
+        inputs:
+          version: ${{ parameters.dotnetVersion }}
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+
+      - script: dotnet workload install aspire
+        displayName: 'Install Aspire Workload'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore Dependencies'
+        inputs:
+          command: 'restore'
+          projects: 'checklist-hve-core.sln'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Build Application'
+        inputs:
+          command: 'build'
+          projects: '${{ parameters.appFolderName }}${{ parameters.appProjectName }}.csproj'
+          arguments: '--configuration ${{ parameters.buildConfiguration }} --no-restore'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Run Tests'
+        condition: eq('${{ parameters.runTests }}', 'true')
+        inputs:
+          command: 'test'
+          projects: 'src/${{ parameters.testProjectName }}/${{ parameters.testProjectName }}.csproj'
+          arguments: '--configuration ${{ parameters.buildConfiguration }} --collect:"XPlat Code Coverage" --logger trx'
+          publishTestResults: true
+        continueOnError: true
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish Application'
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '${{ parameters.appFolderName }}${{ parameters.appProjectName }}.csproj'
+          arguments: '--configuration ${{ parameters.buildConfiguration }} --no-build --output $(Build.ArtifactStagingDirectory)/webapp'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish WebApp Artifact'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
+          ArtifactName: ${{ parameters.artifactName }}
+          publishLocation: 'Container'

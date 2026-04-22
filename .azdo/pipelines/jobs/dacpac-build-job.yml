@@ -1,0 +1,63 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Job Template: Build DACPAC
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: appFolderName
+    type: string
+    default: 'Database\'
+  - name: appSolutionName
+    type: string
+    default: 'CheckList.Database'
+  - name: appProjectName
+    type: string
+    default: 'CheckList.Database'
+  - name: artifactName
+    type: string
+    default: 'dacpac'
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+  - name: buildPlatform
+    type: string
+    default: 'Any CPU'
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  - job: BuildDacpac
+    displayName: 'Build DACPAC'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - checkout: self
+        displayName: 'Checkout Repository'
+
+      - task: NuGetToolInstaller@1
+        displayName: 'Install NuGet'
+
+      - task: NuGetCommand@2
+        displayName: 'NuGet Restore'
+        inputs:
+          restoreSolution: '${{ parameters.appFolderName }}${{ parameters.appProjectName }}.sqlproj'
+
+      - task: VSBuild@1
+        displayName: 'Build DACPAC'
+        inputs:
+          solution: '${{ parameters.appFolderName }}${{ parameters.appProjectName }}.sqlproj'
+          platform: ${{ parameters.buildPlatform }}
+          configuration: ${{ parameters.buildConfiguration }}
+          msbuildArgs: '/p:DropObjectsNotInSource=False'
+
+      - task: CopyFiles@2
+        displayName: 'Copy DACPAC to Staging'
+        inputs:
+          SourceFolder: '${{ parameters.appFolderName }}bin/${{ parameters.buildConfiguration }}'
+          Contents: '${{ parameters.appProjectName }}.dacpac'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/dacpac'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish DACPAC Artifact'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/dacpac'
+          ArtifactName: ${{ parameters.artifactName }}
+          publishLocation: 'Container'

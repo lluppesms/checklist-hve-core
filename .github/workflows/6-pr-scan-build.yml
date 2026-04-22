@@ -1,0 +1,71 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Workflow 6: PR Scan and Build
+#------------------------------------------------------------------------------------------------------------------------------
+# Triggered on pull requests to main, or manually dispatched.
+# Runs code scanning and builds application without deploying.
+#------------------------------------------------------------------------------------------------------------------------------
+name: 6-pr-scan-build
+run-name: 6 - PR Scan and Build
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      deployEnvironment:
+        description: Target Environment
+        required: false
+        type: environment
+        default: 'dev'
+
+#------------------------------------------------------------------------------------------------------------------------------
+jobs:
+  load-config:
+    name: Load Config
+    uses: ./.github/workflows/template-load-config.yml
+
+  scan-code:
+    name: Scan Code
+    needs: load-config
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Install Aspire workload
+      run: dotnet workload install aspire
+
+    - name: Build for CodeQL
+      run: dotnet build checklist-hve-core.sln --configuration Release
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  build-app:
+    name: Build App
+    needs: load-config
+    uses: ./.github/workflows/template-webapp-build.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment || 'dev' }}
+      rootDirectory: ${{ needs.load-config.outputs.web_rootDirectory }}
+      projectName: ${{ needs.load-config.outputs.web_projectName }}
+      testDirectory: ${{ needs.load-config.outputs.web_testDirectory }}
+      testProjectName: ${{ needs.load-config.outputs.web_testProjectName }}
+      testApplication: true
+    secrets: inherit

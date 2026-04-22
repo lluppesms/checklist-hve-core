@@ -185,7 +185,57 @@ All 6 implementation phases completed successfully. Full solution builds 0 error
 **Known follow-on work items:**
 - WI-01: Implement `GetCategoriesAsync` full API endpoint (currently stub returning `[]` in `CheckListApiClient`)
 - WI-02: Admin page role guard — wire `[Authorize(Roles = "Admin")]` + Entra ID role claim config
-- WI-03: DACPAC CI/CD — add DACPAC deployment steps once `Microsoft.Build.Sql` available on ubuntu agents
 - WI-04: Populate AzureAd config values in both `appsettings.json` files with real tenant/client IDs
 - WI-05: Add meaningful unit tests to `CheckList.Tests` covering repository logic and endpoint handlers
 - WI-06: Resolve `CS0649` on `ActiveList._listName` once list name retrieval is wired through API
+
+---
+
+## CI/CD and Bicep Realignment (Golden Code Patterns from dadabase.demo)
+
+**Implementation Date**: 2026-04-21 (second pass)
+
+### Added (CI/CD and Bicep)
+
+* `.github/actions/login-action/action.yml` — Reusable composite OIDC/client-secret Azure login action
+* `.github/workflows/template-load-config.yml` — Reusable workflow: emits project/directory names
+* `.github/workflows/template-bicep-deploy.yml` — Reusable workflow: token replacement + `azure/bicep-deploy@v2`
+* `.github/workflows/template-webapp-build.yml` — Reusable workflow: .NET 9 + Aspire build/test/publish
+* `.github/workflows/template-webapp-deploy.yml` — Reusable workflow: download artifact + `Azure/webapps-deploy@v3`
+* `.github/workflows/template-dacpac-build.yml` — Reusable workflow: MSBuild `.sqlproj` on `windows-latest`
+* `.github/workflows/template-dacpac-deploy.yml` — Reusable workflow: `azure/sql-action@v2.3`, OIDC auth
+* `.github/workflows/template-run-sql.yml` — Reusable workflow: `Invoke-Sqlcmd` PowerShell on `windows-latest`
+* `.github/workflows/1-deploy-bicep.yml` — Manual Bicep-only deploy (environment dispatch)
+* `.github/workflows/2.1-bicep-build-deploy-webapp.yml` — Full infra + webapp deploy pipeline
+* `.github/workflows/4-build-deploy-dacpac.yml` — DACPAC build + deploy + seed data pipeline
+* `.github/workflows/6-pr-scan-build.yml` — PR-triggered CodeQL scan + build
+* `.azdo/pipelines/vars/var-common.yml` — Common variables (paths, .NET version, Bicep paths)
+* `.azdo/pipelines/vars/var-service-connections.yml` — Service connection and variable group names
+* `.azdo/pipelines/jobs/bicep-deploy-job.yml` — ADO job: token replace + ARM template deployment
+* `.azdo/pipelines/jobs/webapp-build-job.yml` — ADO job: dotnet restore/build/test/publish
+* `.azdo/pipelines/jobs/webapp-deploy-job.yml` — ADO job: download artifact + `AzureWebApp@1`
+* `.azdo/pipelines/jobs/dacpac-build-job.yml` — ADO job: MSBuild `.sqlproj` on Windows
+* `.azdo/pipelines/jobs/dacpac-deploy-job.yml` — ADO job: SqlPackage or `SqlAzureDacpacDeployment@1`
+* `.azdo/pipelines/stages/bicep-only-stages.yml` — Stages template for Bicep-only deploy
+* `.azdo/pipelines/stages/bicep-and-webapp-stages.yml` — Stages template for full infra + app deploy
+* `.azdo/pipelines/stages/dacpac-deploy-stages.yml` — Stages template for DACPAC build + deploy
+* `.azdo/pipelines/1-deploy-bicep.yml` — Numbered ADO pipeline: manual Bicep deploy
+* `.azdo/pipelines/2.1-bicep-build-deploy-webapp.yml` — Numbered ADO pipeline: infra + webapp
+* `.azdo/pipelines/4-build-deploy-dacpac.yml` — Numbered ADO pipeline: DACPAC
+* `.azdo/pipelines/6-pr-scan-build.yml` — Numbered ADO pipeline: PR scan + build
+* `infra/bicep/data/resourceAbbreviations.json` — Resource abbreviation lookup table
+* `infra/bicep/resourcenames.bicep` — Centralized resource name generation module
+* `infra/bicep/main.bicepparam` — Token-replacement parameter file (`#{TOKEN}#` pattern)
+* `infra/bicep/main.parameters.json` — Static parameter file for local testing
+
+### Modified (CI/CD and Bicep)
+
+* `infra/bicep/main.bicep` — Rewritten: uses `resourcenames.bicep` module, new params (`environmentCode`, `instanceNumber`, Entra ID params), modules updated
+* `infra/bicep/modules/sqlServer.bicep` — Updated: replaced password auth with Entra ID admin params
+* `infra/bicep/modules/appService.bicep` — Updated: added `adInstance`, `adTenantId`, `adClientId`, `adDomain` params + app settings
+
+### Removed (CI/CD and Bicep)
+
+* `.github/workflows/build-and-test.yml` — Replaced by `6-pr-scan-build.yml` (golden code pattern)
+* `.github/workflows/deploy.yml` — Replaced by `2.1-bicep-build-deploy-webapp.yml` (golden code pattern)
+* `.azuredevops/` — Entire folder removed; replaced by `.azdo/` (golden code naming convention)

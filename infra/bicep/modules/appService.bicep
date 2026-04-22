@@ -13,6 +13,18 @@ param appInsightsConnectionString string
 @description('Key Vault name for secret references')
 param keyVaultName string
 
+@description('Entra ID login instance endpoint')
+param adInstance string = 'https://login.microsoftonline.com/'
+
+@description('Entra ID tenant ID')
+param adTenantId string = ''
+
+@description('App registration client ID')
+param adClientId string = ''
+
+@description('Entra ID domain')
+param adDomain string = ''
+
 resource app 'Microsoft.Web/sites@2023-12-01' = {
   name: appName
   location: location
@@ -42,6 +54,22 @@ resource app 'Microsoft.Web/sites@2023-12-01' = {
         {
           name: 'KeyVaultName'
           value: keyVaultName
+        }
+        {
+          name: 'AzureAd__Instance'
+          value: adInstance
+        }
+        {
+          name: 'AzureAd__TenantId'
+          value: adTenantId
+        }
+        {
+          name: 'AzureAd__ClientId'
+          value: adClientId
+        }
+        {
+          name: 'AzureAd__Domain'
+          value: adDomain
         }
       ]
     }

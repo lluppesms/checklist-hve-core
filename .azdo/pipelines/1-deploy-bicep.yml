@@ -1,0 +1,57 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Pipeline 1: Deploy Azure Bicep Infrastructure Only
+#------------------------------------------------------------------------------------------------------------------------------
+# Required ADO Variable Groups:
+#   Checklist.Demo         - Common deployment variables
+#   Checklist.Demo.Secrets - Secrets (SQL admin, Azure client secret)
+#
+# Required ADO Environments: dev, qa, prod
+#------------------------------------------------------------------------------------------------------------------------------
+name: 1-deploy-bicep-$(Date:yyyyMMdd).$(Rev:r)
+
+trigger: none
+
+parameters:
+  - name: deployEnvironment
+    displayName: Target Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - qa
+      - prod
+  - name: bicepDeploymentMode
+    displayName: Bicep Deployment Mode
+    type: string
+    default: create
+    values:
+      - create
+      - whatIf
+  - name: deploymentType
+    displayName: Deployment Type
+    type: string
+    default: webapp
+    values:
+      - webapp
+
+variables:
+  - template: vars/var-common.yml
+  - template: vars/var-service-connections.yml
+  - group: Checklist.Demo
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - template: stages/bicep-only-stages.yml
+    parameters:
+      environments:
+        - envCode: ${{ parameters.deployEnvironment }}
+          envName: ${{ upper(parameters.deployEnvironment) }}
+      azureServiceConnection: $(azureServiceConnection)
+      bicepPath: $(bicepPath)
+      bicepFile: $(bicepFile)
+      bicepParamsFile: $(bicepParamsFile)
+      deploymentMode: ${{ parameters.bicepDeploymentMode }}
+      deploymentType: ${{ parameters.deploymentType }}

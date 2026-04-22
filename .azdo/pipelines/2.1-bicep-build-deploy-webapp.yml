@@ -1,0 +1,68 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Pipeline 2.1: Build and Deploy Bicep + Web App
+#------------------------------------------------------------------------------------------------------------------------------
+# Required ADO Variable Groups:
+#   Checklist.Demo         - Common deployment variables
+#   Checklist.Demo.Secrets - Secrets (SQL admin, Azure client secret)
+#
+# Required ADO Environments: dev, qa, prod
+#------------------------------------------------------------------------------------------------------------------------------
+name: 2.1-bicep-build-deploy-webapp-$(Date:yyyyMMdd).$(Rev:r)
+
+trigger: none
+
+parameters:
+  - name: deployEnvironment
+    displayName: Target Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - qa
+      - prod
+  - name: bicepDeploymentMode
+    displayName: Bicep Deployment Mode
+    type: string
+    default: create
+    values:
+      - create
+      - whatIf
+  - name: deployInfrastructure
+    displayName: Deploy Infrastructure?
+    type: boolean
+    default: true
+  - name: deployApplication
+    displayName: Deploy Application?
+    type: boolean
+    default: true
+  - name: runTests
+    displayName: Run Tests?
+    type: boolean
+    default: false
+
+variables:
+  - template: vars/var-common.yml
+  - template: vars/var-service-connections.yml
+  - group: Checklist.Demo
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - template: stages/bicep-and-webapp-stages.yml
+    parameters:
+      environments:
+        - envCode: ${{ parameters.deployEnvironment }}
+          envName: ${{ upper(parameters.deployEnvironment) }}
+      azureServiceConnection: $(azureServiceConnection)
+      dotnetVersion: $(dotnetVersion)
+      appFolderName: $(webAppFolderName)
+      appProjectName: $(webAppProjectName)
+      testProjectName: $(webTestProjectName)
+      bicepPath: $(bicepPath)
+      bicepFile: $(bicepFile)
+      bicepParamsFile: $(bicepParamsFile)
+      deploymentMode: ${{ parameters.bicepDeploymentMode }}
+      deploymentType: 'webapp'
+      runTests: ${{ parameters.runTests }}

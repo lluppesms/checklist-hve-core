@@ -1,0 +1,196 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# Reusable Workflow: Deploy Azure Resources Only
+#------------------------------------------------------------------------------------------------------------------------
+# FYI: You need to set up some secrets before running this workflow - see README.md for details.
+#   AZURE_CLIENT_ID        - Azure service principal / workload identity client ID
+#   AZURE_TENANT_ID        - Azure tenant ID
+#   AZURE_SUBSCRIPTION_ID  - Azure subscription ID
+#
+# Required GitHub Variables (set per environment):
+#   APP_NAME                 - Application name prefix
+#   INSTANCE_NUMBER          - Instance number (e.g., 1)
+#   RESOURCE_GROUP_PREFIX    - Resource group name prefix
+#   RESOURCE_GROUP_NAME      - Full resource group name (optional override)
+#   RESOURCE_GROUP_LOCATION  - Azure region (e.g., eastus)
+#   ENVCODE                  - Short environment code (dev, qa, prod)
+#   SQL_SERVER_NAME_PREFIX   - SQL server name prefix
+#   SQL_DATABASE_NAME        - SQL database name
+#   DEPLOYMENT_TYPE          - Deployment type (webapp)
+#   INSTANCE_NUMBER          - Instance number suffix
+#------------------------------------------------------------------------------------------------------------------------
+name: z_template_deploy_infra
+run-name: Deploy Bicep
+on:
+  workflow_call:
+    inputs:
+      envCode:
+        required: true
+        type: string
+      templatePath:
+        required: false
+        type: string
+        default: 'infra/Bicep/'
+      templateFile:
+        required: false
+        type: string
+        default: 'main.bicep'
+      parameterFile:
+        required: false
+        type: string
+        default: ''
+      parameterFileReplaceTokens:
+        required: false
+        type: string
+        default: 'false'
+      deploymentType:
+        required: false
+        type: string
+        default: 'webapp'
+      runCreateInfra:
+        required: false
+        default: true
+        type: boolean
+      deployInResourceGroup:
+        required: false
+        default: true
+        type: boolean
+      createResourceGroup:
+        description: Create Resource Group?
+        type: boolean
+        default: false
+      requestorName:
+        description: Requestor Name
+        type: string
+        default: 'UNKNOWN'
+      bicepDeploymentMode:
+        description: 'Bicep deploy action: Valid = create, validate, whatIf'
+        required: false
+        type: string
+        default: 'create'
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  deploy:
+    name: Deploy Bicep (${{ inputs.bicepDeploymentMode }})
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.envCode }}
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
+
+    env:
+      envCode: ${{ inputs.envCode }}
+      generatedAppEnvName: ${{ inputs.envCode == 'prod' && vars.APP_NAME || format('{0}-{1}-{2}', vars.APP_NAME, inputs.envCode, vars.INSTANCE_NUMBER) }}
+      generatedResourceGroupName: ${{ vars.RESOURCE_GROUP_NAME || format('{0}-{1}-{2}', vars.RESOURCE_GROUP_PREFIX, inputs.envCode, vars.INSTANCE_NUMBER) }}
+      DEPLOYMENT_TYPE: ${{ inputs.deploymentType }}
+      createResourceGroup: ${{ inputs.createResourceGroup }}
+      requestorName: ${{ inputs.requestorName }}
+
+    steps:
+    - name: Checkout Code
+      if: ${{ inputs.runCreateInfra }}
+      uses: actions/checkout@v4
+
+    - name: Get the current date
+      if: ${{ inputs.runCreateInfra }}
+      id: get-date
+      run: echo "DATE_TIME_STAMP=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+
+    - name: Display Variables and Files
+      if: ${{ inputs.runCreateInfra }}
+      run: |-
+        echo "env.generatedAppEnvName=${{ env.generatedAppEnvName }}"
+        echo "inputs.envCode=${{ inputs.envCode }}"
+        echo "env.generatedResourceGroupName=${{ env.generatedResourceGroupName }}"
+        echo "templateFilePath=${{ inputs.templatePath }}${{ inputs.templateFile }}"
+        echo "parameterFilePath=${{ inputs.templatePath }}${{ inputs.parameterFile }}"
+        echo "bicepDeploymentMode=${{ inputs.bicepDeploymentMode }}"
+        echo "vars.INSTANCE_NUMBER=${{ vars.INSTANCE_NUMBER }}"
+        echo "vars.RESOURCE_GROUP_PREFIX=${{ vars.RESOURCE_GROUP_PREFIX }}"
+        echo "vars.RESOURCE_GROUP_LOCATION=${{ vars.RESOURCE_GROUP_LOCATION }}"
+        echo "---------------------------------"
+        echo "##[group]All Variables:"
+        echo "Environment:"
+        echo "${{ toJSON(env) }}"
+        echo "Variables:"
+        echo "${{ toJSON(vars) }}"
+        echo "Inputs:"
+        echo '${{ toJSON(inputs) }}'
+        echo "##[endgroup]"
+      continue-on-error: true
+
+    - name: Replace Tokens
+      if: ${{ inputs.runCreateInfra && inputs.parameterFileReplaceTokens == 'true' }}
+      uses: qetza/replacetokens-action@v1
+      with:
+        sources: '${{ inputs.templatePath }}${{ inputs.parameterFile }}; !local/ => ${{ inputs.parameterFile }}'
+        variables: '[${{ toJSON(env) }},${{ toJSON(vars) }},${{ toJSON(secrets) }}]'
+
+    - name: Display Param File
+      if: ${{ inputs.runCreateInfra }}
+      run: |-
+        echo "##[group]Contents of ${{ inputs.templatePath }}${{ inputs.parameterFile }}"
+        cat ${{ inputs.templatePath }}${{ inputs.parameterFile }}
+        echo "##[endgroup]"
+      continue-on-error: true
+
+    - name: Azure Login (Reusable Action)
+      if: ${{ inputs.runCreateInfra }}
+      uses: ./.github/actions/login-action
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Create Resource Group
+      if: ${{ inputs.runCreateInfra && inputs.deployInResourceGroup && inputs.createResourceGroup }}
+      run: az group create --name ${{ env.generatedResourceGroupName }} --location ${{ vars.RESOURCE_GROUP_LOCATION }} --tags Environment=${{ inputs.envCode }}
+
+    - name: What-If Analysis (RG)
+      if: ${{ inputs.runCreateInfra && inputs.deployInResourceGroup && inputs.bicepDeploymentMode == 'whatIf' }}
+      id: whatif-analysis-rg
+      run: |
+        echo "Running what-if analysis..."
+        az deployment group what-if \
+          --name ${{ inputs.templateFile }}-whatif-rg-${{ vars.RESOURCE_GROUP_LOCATION }}-${{ steps.get-date.outputs.DATE_TIME_STAMP}} \
+          --resource-group "${{ env.generatedResourceGroupName }}" \
+          --template-file "${{ inputs.templatePath }}${{ inputs.templateFile }}" \
+          --parameters "@${{ inputs.templatePath }}${{ inputs.parameterFile }}" \
+          --no-prompt true
+
+    - name: Deploy ${{ inputs.deploymentType }} Azure Resources
+      uses: azure/bicep-deploy@v2
+      if: ${{ inputs.runCreateInfra && inputs.deployInResourceGroup && inputs.bicepDeploymentMode != 'whatIf' }}
+      id: deploy-bicep-rg
+      with:
+        scope: resourceGroup
+        name: ${{ inputs.templateFile }}-rg-${{ vars.RESOURCE_GROUP_LOCATION }}-${{ steps.get-date.outputs.DATE_TIME_STAMP}}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resource-group-name: ${{ env.generatedResourceGroupName }}
+        template-file: ${{ inputs.templatePath }}${{ inputs.templateFile }}
+        parameters-file: ${{ inputs.templatePath }}${{ inputs.parameterFile }}
+        type: deployment
+        operation: ${{ inputs.bicepDeploymentMode }}
+
+    - name: Display Output
+      if: ${{ inputs.runCreateInfra }}
+      run: |-
+        echo "=== Deployment Outputs ==="
+        echo "##[group]Resource Group Deployment Outputs"
+        echo '${{ toJSON(steps.deploy-bicep-rg.outputs) }}'
+        echo "##[endgroup]"
+      continue-on-error: true
+
+    - name: Write summary
+      if: ${{ inputs.runCreateInfra }}
+      env:
+        SUMMARY: |
+          # Deployment summary
+          - Resource Group: ${{ env.generatedResourceGroupName }}
+          - Environment: ${{ inputs.envCode }}
+          - Deployment Type: ${{ inputs.deploymentType }}
+      run: echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true

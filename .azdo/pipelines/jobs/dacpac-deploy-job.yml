@@ -1,0 +1,77 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Job Template: Deploy DACPAC to Azure SQL
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: envCode
+    type: string
+  - name: envName
+    type: string
+  - name: azureServiceConnection
+    type: string
+  - name: artifactName
+    type: string
+    default: 'dacpac'
+  - name: appProjectName
+    type: string
+    default: 'CheckList.Database'
+  - name: loginAccountType
+    type: string
+    default: 'SVC_PRINCIPAL'
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  - deployment: DeployDacpac
+    displayName: 'Deploy DACPAC to ${{ parameters.envName }}'
+    pool:
+      vmImage: 'windows-latest'
+    environment: ${{ parameters.envName }}
+    variables:
+      - group: Checklist.Demo
+      - group: Checklist.Demo.Secrets
+      - name: sqlServerName
+        value: '$(SQL_SERVER_NAME_PREFIX)$(INSTANCE_NUMBER)sql${{ parameters.envCode }}'
+      - name: fqdnServerName
+        value: '$(SQL_SERVER_NAME_PREFIX)$(INSTANCE_NUMBER)sql${{ parameters.envCode }}.database.windows.net'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: none
+
+            - task: DownloadBuildArtifacts@1
+              displayName: 'Download DACPAC Artifact'
+              inputs:
+                buildType: 'current'
+                artifactName: ${{ parameters.artifactName }}
+                downloadPath: '$(System.ArtifactsDirectory)'
+
+            - task: AzureCLI@2
+              displayName: 'Deploy DACPAC - Service Principal'
+              condition: eq('${{ parameters.loginAccountType }}', 'SVC_PRINCIPAL')
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                scriptType: 'pscore'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  $accessToken = az account get-access-token --resource=https://database.windows.net/ --query accessToken -o tsv
+                  $dacpacPath = "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{ parameters.appProjectName }}.dacpac"
+                  Write-Host "Deploying DACPAC: $dacpacPath"
+                  Write-Host "Target: $(fqdnServerName) / $(SQL_DATABASE_NAME)"
+                  
+                  SqlPackage /Action:Publish `
+                    /SourceFile:"$dacpacPath" `
+                    /TargetConnectionString:"Server=$(fqdnServerName);Database=$(SQL_DATABASE_NAME);Authentication=Active Directory Default;Encrypt=True;TrustServerCertificate=False;Connection Timeout=120;" `
+                    /p:DropObjectsNotInSource=False
+
+            - task: SqlAzureDacpacDeployment@1
+              displayName: 'Deploy DACPAC - Local SQL User'
+              condition: eq('${{ parameters.loginAccountType }}', 'LOCAL_SQL')
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                AuthenticationType: 'connectionString'
+                ConnectionString: 'Server=$(fqdnServerName);Database=$(SQL_DATABASE_NAME);User Id=$(SQL_ADMIN_USER);Password=$(SQL_ADMIN_PASSWORD);'
+                deployType: 'DacpacTask'
+                DeploymentAction: 'Publish'
+                DacpacFile: '$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{ parameters.appProjectName }}.dacpac'
+                AdditionalArguments: '/p:DropObjectsNotInSource=False'

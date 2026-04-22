@@ -1,0 +1,61 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Stage Template: DACPAC Build and Deploy Stages
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: environments
+    type: object
+    default:
+      - envCode: dev
+        envName: DEV
+  - name: azureServiceConnection
+    type: string
+  - name: appFolderName
+    type: string
+    default: 'Database\'
+  - name: appSolutionName
+    type: string
+    default: 'CheckList.Database'
+  - name: appProjectName
+    type: string
+    default: 'CheckList.Database'
+  - name: loginAccountType
+    type: string
+    default: 'SVC_PRINCIPAL'
+  - name: buildConfiguration
+    type: string
+    default: 'Release'
+  - name: buildPlatform
+    type: string
+    default: 'Any CPU'
+
+#------------------------------------------------------------------------------------------------------------------------
+stages:
+  - stage: BuildDacPac
+    displayName: 'Build DACPAC'
+    pool:
+      vmImage: 'windows-latest'
+    jobs:
+      - template: ../jobs/dacpac-build-job.yml
+        parameters:
+          appFolderName: ${{ parameters.appFolderName }}
+          appSolutionName: ${{ parameters.appSolutionName }}
+          appProjectName: ${{ parameters.appProjectName }}
+          buildConfiguration: ${{ parameters.buildConfiguration }}
+          buildPlatform: ${{ parameters.buildPlatform }}
+          listFilesAfterBuild: true
+
+  - ${{ each env in parameters.environments }}:
+    - stage: Deploy${{ env.envName }}Schema
+      displayName: 'Deploy ${{ env.envName }} Schema'
+      dependsOn: BuildDacPac
+      pool:
+        vmImage: 'windows-latest'
+      jobs:
+        - template: ../jobs/dacpac-deploy-job.yml
+          parameters:
+            envCode: ${{ env.envCode }}
+            envName: ${{ env.envName }}
+            azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            appProjectName: ${{ parameters.appProjectName }}
+            loginAccountType: ${{ parameters.loginAccountType }}

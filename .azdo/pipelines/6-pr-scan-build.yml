@@ -1,0 +1,73 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Pipeline 6: PR Scan and Build
+#------------------------------------------------------------------------------------------------------------------------------
+# Triggered on pull requests to main. Scans code and builds without deploying.
+#------------------------------------------------------------------------------------------------------------------------------
+name: 6-pr-scan-build-$(Date:yyyyMMdd).$(Rev:r)
+
+trigger: none
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/**
+      - Database/**
+      - infra/**
+
+parameters:
+  - name: runTests
+    displayName: Run Tests?
+    type: boolean
+    default: true
+
+variables:
+  - template: vars/var-common.yml
+  - template: vars/var-service-connections.yml
+  - group: Checklist.Demo
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: ScanAndBuild
+    displayName: 'Scan and Build'
+    jobs:
+      - job: ScanCode
+        displayName: 'Scan Code'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          - task: UseDotNet@2
+            displayName: 'Install .NET $(dotnetVersion)'
+            inputs:
+              version: $(dotnetVersion)
+
+          - script: dotnet workload install aspire
+            displayName: 'Install Aspire Workload'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Restore'
+            inputs:
+              command: 'restore'
+              projects: 'checklist-hve-core.sln'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Build for Scanning'
+            inputs:
+              command: 'build'
+              projects: 'checklist-hve-core.sln'
+              arguments: '--configuration Release --no-restore'
+
+      - template: jobs/webapp-build-job.yml
+        parameters:
+          dotnetVersion: $(dotnetVersion)
+          appFolderName: $(webAppFolderName)
+          appProjectName: $(webAppProjectName)
+          testProjectName: $(webTestProjectName)
+          runTests: ${{ parameters.runTests }}

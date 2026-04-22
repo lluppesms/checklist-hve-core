@@ -1,0 +1,50 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# Common Variables for all pipelines
+#------------------------------------------------------------------------------------------------------------------------
+variables:
+  # Project settings
+  - name: appName
+    value: 'checklist'
+
+  # Web project
+  - name: webAppFolderName
+    value: 'src/CheckList.Web/'
+  - name: webAppProjectName
+    value: 'CheckList.Web'
+  - name: webTestProjectName
+    value: 'CheckList.Tests'
+
+  # SQL project
+  - name: sqlAppFolderName
+    value: 'Database\'
+  - name: sqlAppSolutionName
+    value: 'CheckList.Database'
+  - name: sqlAppProjectName
+    value: 'CheckList.Database'
+
+  # Build settings
+  - name: buildPlatform
+    value: 'Any CPU'
+  - name: buildConfiguration
+    value: 'Release'
+
+  # Dotnet version
+  - name: dotnetVersion
+    value: '9.0.x'
+
+  # Artifact name
+  - name: webArtifactName
+    value: 'webapp'
+  - name: dacpacArtifactName
+    value: 'dacpac'
+
+  # Resource naming
+  - name: resourceGroupPrefix
+    value: 'rg-checklist'
+  - name: bicepPath
+    value: 'infra/Bicep/'
+  - name: bicepFile
+    value: 'main.bicep'
+  - name: bicepParamsFile
+    value: 'main.bicepparam'

@@ -1,0 +1,47 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Job Template: Deploy Web App to Azure App Service
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: envCode
+    type: string
+  - name: envName
+    type: string
+  - name: azureServiceConnection
+    type: string
+  - name: artifactName
+    type: string
+    default: 'webapp'
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  - deployment: DeployWebApp
+    displayName: 'Deploy WebApp to ${{ parameters.envName }}'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: ${{ parameters.envName }}
+    variables:
+      - group: Checklist.Demo
+      - name: generatedAppName
+        value: '$(APP_NAME)$(INSTANCE_NUMBER)-${{ parameters.envCode }}'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: none
+
+            - task: DownloadBuildArtifacts@1
+              displayName: 'Download WebApp Artifact'
+              inputs:
+                buildType: 'current'
+                artifactName: ${{ parameters.artifactName }}
+                downloadPath: '$(System.ArtifactsDirectory)'
+
+            - task: AzureWebApp@1
+              displayName: 'Deploy to Azure App Service'
+              inputs:
+                azureSubscription: ${{ parameters.azureServiceConnection }}
+                appType: 'webAppLinux'
+                appName: $(generatedAppName)
+                package: '$(System.ArtifactsDirectory)/${{ parameters.artifactName }}'
+                deploymentMethod: 'auto'

@@ -1,0 +1,44 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# ADO Stage Template: Bicep Deploy Only Stages
+#------------------------------------------------------------------------------------------------------------------------
+parameters:
+  - name: environments
+    type: object
+    default:
+      - envCode: dev
+        envName: DEV
+  - name: azureServiceConnection
+    type: string
+  - name: bicepPath
+    type: string
+    default: 'infra/Bicep/'
+  - name: bicepFile
+    type: string
+    default: 'main.bicep'
+  - name: bicepParamsFile
+    type: string
+    default: 'main.bicepparam'
+  - name: deploymentMode
+    type: string
+    default: 'create'
+  - name: deploymentType
+    type: string
+    default: 'webapp'
+
+#------------------------------------------------------------------------------------------------------------------------
+stages:
+  - ${{ each env in parameters.environments }}:
+    - stage: CreateInfrastructure${{ env.envName }}
+      displayName: 'Create ${{ env.envName }} Infrastructure'
+      jobs:
+        - template: ../jobs/bicep-deploy-job.yml
+          parameters:
+            envCode: ${{ env.envCode }}
+            envName: ${{ env.envName }}
+            azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            bicepPath: ${{ parameters.bicepPath }}
+            bicepFile: ${{ parameters.bicepFile }}
+            bicepParamsFile: ${{ parameters.bicepParamsFile }}
+            deploymentMode: ${{ parameters.deploymentMode }}
+            deploymentType: ${{ parameters.deploymentType }}

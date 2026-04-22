@@ -1,0 +1,95 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Workflow 4: Build and Deploy DACPAC to Azure SQL Database
+#------------------------------------------------------------------------------------------------------------------------------
+# FYI: You need to set up some secrets before running this workflow - see README.md for details.
+#   AZURE_CLIENT_ID        - Azure service principal / workload identity client ID
+#   AZURE_TENANT_ID        - Azure tenant ID
+#   AZURE_SUBSCRIPTION_ID  - Azure subscription ID
+#   SQL_ADMIN_USER         - SQL admin username (only for LOCAL_SQL login type)
+#   SQL_ADMIN_PASSWORD     - SQL admin password (only for LOCAL_SQL login type)
+#
+# Prerequisites:
+# Unless you are using a local user/password, you must find the service principal name that is running
+# your pipeline and execute these commands in the Azure SQL Database to grant access:
+#   CREATE USER yourSP FROM EXTERNAL PROVIDER
+#   ALTER ROLE db_owner ADD MEMBER yourSP
+#
+# Required GitHub Variables (set per environment):
+#   SQL_SERVER_NAME_PREFIX - SQL server name prefix
+#   INSTANCE_NUMBER        - Instance number suffix
+#   SQL_DATABASE_NAME      - SQL database name
+#------------------------------------------------------------------------------------------------------------------------------
+name: 4-build-deploy-dacpac
+run-name: 4 - Build/Deploy DACPAC (${{ github.event.inputs.deployEnvironment }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployEnvironment:
+        description: Target Environment
+        required: true
+        type: environment
+        default: 'dev'
+      dacpacAction:
+        description: DACPAC Action
+        required: true
+        default: build-deploy
+        type: choice
+        options:
+          - build-deploy
+          - build-only
+      loginAccountType:
+        description: Login Account Type
+        required: false
+        default: SVC_PRINCIPAL
+        type: choice
+        options:
+          - SVC_PRINCIPAL
+          - LOCAL_SQL
+      createDefaultData:
+        description: Insert Default Data?
+        required: false
+        default: false
+        type: boolean
+
+#------------------------------------------------------------------------------------------------------------------------------
+jobs:
+  load-config:
+    name: Load Config
+    uses: ./.github/workflows/template-load-config.yml
+
+  build-dacpac:
+    name: Build DACPAC
+    needs: load-config
+    uses: ./.github/workflows/template-dacpac-build.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      appFolderName: ${{ needs.load-config.outputs.sql_rootDirectory }}
+      appSolutionName: ${{ needs.load-config.outputs.sql_solutionName }}
+      appProjectName: ${{ needs.load-config.outputs.sql_projectName }}
+      listFilesAfterBuild: true
+    secrets: inherit
+
+  deploy-dacpac:
+    name: Deploy DACPAC
+    needs: [load-config, build-dacpac]
+    if: github.event.inputs.dacpacAction != 'build-only'
+    uses: ./.github/workflows/template-dacpac-deploy.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      appProjectName: ${{ needs.load-config.outputs.sql_projectName }}
+      loginAccountType: ${{ github.event.inputs.loginAccountType }}
+    secrets: inherit
+
+  insert-default-data:
+    name: Insert Default Data
+    needs: [load-config, deploy-dacpac]
+    if: ${{ github.event.inputs.dacpacAction != 'build-only' && github.event.inputs.createDefaultData == 'true' }}
+    uses: ./.github/workflows/template-run-sql.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      sqlFolderName: ${{ needs.load-config.outputs.sql_rootDirectory }}
+      sqlFileName: 'DefaultData.sql'
+      loginAccountType: ${{ github.event.inputs.loginAccountType }}
+    secrets: inherit

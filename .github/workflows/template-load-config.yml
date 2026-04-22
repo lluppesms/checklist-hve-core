@@ -1,0 +1,72 @@
+#
+#----------------------------------------------------------------------------------------------------
+# GHA Reusable Workflow to Load All Project Configurations
+#----------------------------------------------------------------------------------------------------
+# Usage in calling workflow:
+#   jobs:
+#     load-config:
+#       uses: ./.github/workflows/template-load-config.yml
+#
+#     build-web:
+#       needs: load-config
+#       uses: ./.github/workflows/template-webapp-build.yml
+#       with:
+#         rootDirectory: ${{ needs.load-config.outputs.web_rootDirectory }}
+#         projectName: ${{ needs.load-config.outputs.web_projectName }}
+#----------------------------------------------------------------------------------------------------
+name: z_template_load_config
+run-name: Load Project Config
+
+on:
+  workflow_call:
+    outputs:
+      # Web project
+      web_rootDirectory:
+        description: 'Web project root directory'
+        value: ${{ jobs.load.outputs.web_rootDirectory }}
+      web_projectName:
+        description: 'Web project name'
+        value: ${{ jobs.load.outputs.web_projectName }}
+      web_testDirectory:
+        description: 'Web test directory'
+        value: ${{ jobs.load.outputs.web_testDirectory }}
+      web_testProjectName:
+        description: 'Web test project name'
+        value: ${{ jobs.load.outputs.web_testProjectName }}
+      # SQL project
+      sql_rootDirectory:
+        description: 'SQL project root directory'
+        value: ${{ jobs.load.outputs.sql_rootDirectory }}
+      sql_solutionName:
+        description: 'SQL solution name'
+        value: ${{ jobs.load.outputs.sql_solutionName }}
+      sql_projectName:
+        description: 'SQL project name'
+        value: ${{ jobs.load.outputs.sql_projectName }}
+
+jobs:
+  load:
+    name: Load Project Config Settings
+    runs-on: ubuntu-latest
+    outputs:
+      # Web
+      web_rootDirectory: ${{ steps.config.outputs.web_rootDirectory }}
+      web_projectName: ${{ steps.config.outputs.web_projectName }}
+      web_testDirectory: ${{ steps.config.outputs.web_testDirectory }}
+      web_testProjectName: ${{ steps.config.outputs.web_testProjectName }}
+      # SQL
+      sql_rootDirectory: ${{ steps.config.outputs.sql_rootDirectory }}
+      sql_solutionName: ${{ steps.config.outputs.sql_solutionName }}
+      sql_projectName: ${{ steps.config.outputs.sql_projectName }}
+
+    steps:
+      - name: Set project configuration
+        id: config
+        run: |
+          echo "web_rootDirectory=src/CheckList.Web" >> $GITHUB_OUTPUT
+          echo "web_projectName=CheckList.Web" >> $GITHUB_OUTPUT
+          echo "web_testDirectory=src/CheckList.Tests" >> $GITHUB_OUTPUT
+          echo "web_testProjectName=CheckList.Tests" >> $GITHUB_OUTPUT
+          echo "sql_rootDirectory=Database" >> $GITHUB_OUTPUT
+          echo "sql_solutionName=CheckList.Database" >> $GITHUB_OUTPUT
+          echo "sql_projectName=CheckList.Database" >> $GITHUB_OUTPUT

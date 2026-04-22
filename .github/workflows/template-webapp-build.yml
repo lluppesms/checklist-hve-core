@@ -1,0 +1,127 @@
+#
+#------------------------------------------------------------------------------------------------------------------------
+# GHA Reusable Called Workflow to build a Web App
+#------------------------------------------------------------------------------------------------------------------------
+# You need to set up secrets in the GitHub Secrets Repository before running these workflows.
+#   See README.md for details
+#------------------------------------------------------------------------------------------------------------------------
+name: z_template_webapp_build
+run-name: Build WebApp
+on:
+  workflow_call:
+    inputs:
+      envCode:
+        required: true
+        type: string
+      rootDirectory:
+        required: true
+        type: string
+      projectName:
+        required: true
+        type: string
+      testDirectory:
+        required: false
+        type: string
+      testProjectName:
+        required: false
+        type: string
+      listFilesAfterBuild:
+        required: false
+        type: boolean
+        default: false
+      testApplication:
+        required: false
+        type: boolean
+        default: false
+
+#------------------------------------------------------------------------------------------------------------------------
+jobs:
+  build:
+    name: Build
+    # Note: Publish test results action only works on Linux build servers...
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.envCode }}
+    env:
+      CONFIGURATION: Release
+      DOTNET_CORE_VERSION: 9.0.x
+      artifactName: webapp
+      AZURE_WEBAPP_PACKAGE_PATH: ./output
+
+    permissions:
+      contents: write
+      issues: write
+      checks: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Display Variables
+      run: |-
+        echo "inputs.rootDirectory=${{ inputs.rootDirectory }}"
+        echo "projectName=${{ inputs.projectName }}"
+        echo "testDirectory=${{ inputs.testDirectory }}"
+        echo "testProjectName=${{ inputs.testProjectName }}"
+        echo "listFilesAfterBuild=${{ inputs.listFilesAfterBuild }}"
+        echo "testApplication=${{ inputs.testApplication }}"
+      continue-on-error: true
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
+    - name: Install Aspire workload
+      run: dotnet workload install aspire
+
+    - name: Restore Dependencies
+      run: dotnet restore checklist-hve-core.sln
+
+    - name: Create Runtime Variables
+      id: vars
+      shell: bash
+      run: |
+        readonly rundatetime=$(date +'%Y-%m-%dT%H:%M:%SZ')
+        echo "rundatetime=$rundatetime" >> $GITHUB_OUTPUT
+        readonly rundate=$(date +'%Y.%m.%d')
+        echo "rundate=$rundate" >> $GITHUB_OUTPUT
+        readonly commitbranch=$(echo ${GITHUB_REF#refs/heads/})
+        echo "commitbranch=$commitbranch" >> $GITHUB_OUTPUT
+        readonly commitsha=${GITHUB_SHA::6}
+        echo "commitsha=$commitsha" >> $GITHUB_OUTPUT
+      continue-on-error: true
+
+    - name: Build Application
+      run: dotnet build "${{ inputs.rootDirectory }}/${{ inputs.projectName }}.csproj" --configuration Release --no-restore
+
+    - name: Test Application
+      if: inputs.testApplication == true
+      run: dotnet test "${{ inputs.testDirectory }}/${{ inputs.testProjectName }}.csproj" --logger trx --collect:"XPlat Code Coverage" --results-directory TestResults
+      continue-on-error: true
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: inputs.testApplication == true
+      with:
+        files: |
+          **/TestResults/**/*.trx
+      continue-on-error: true
+
+    - name: Publish
+      run: dotnet publish "${{ inputs.rootDirectory }}/${{ inputs.projectName }}.csproj" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+
+    - name: Save Publish Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.artifactName }}
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        include-hidden-files: true
+
+    - name: List All Files After Build
+      if: inputs.listFilesAfterBuild == true
+      shell: pwsh
+      run: |
+        Write-Host "Listing file details (recursive) under: src"
+        Get-ChildItem -Path src -Recurse -Force -File

@@ -1,0 +1,99 @@
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Workflow 2.1: Build and Deploy Bicep + Web App
+#------------------------------------------------------------------------------------------------------------------------------
+# FYI: You need to set up some secrets before running this workflow - see README.md for details.
+#   AZURE_CLIENT_ID        - Azure service principal / workload identity client ID
+#   AZURE_TENANT_ID        - Azure tenant ID
+#   AZURE_SUBSCRIPTION_ID  - Azure subscription ID
+#
+# Required GitHub Variables (set per environment):
+#   APP_NAME                 - Application name prefix
+#   INSTANCE_NUMBER          - Instance number (e.g., 1)
+#   RESOURCE_GROUP_PREFIX    - Resource group name prefix
+#   RESOURCE_GROUP_LOCATION  - Azure region (e.g., eastus)
+#------------------------------------------------------------------------------------------------------------------------------
+name: 2.1-bicep-build-deploy-webapp
+run-name: 2.1 - Deploy Bicep + WebApp (${{ github.event.inputs.deployEnvironment }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployEnvironment:
+        description: Target Environment
+        required: true
+        type: environment
+        default: 'dev'
+      bicepDeploymentMode:
+        description: Bicep Deploy Mode (create/whatIf)
+        required: true
+        default: create
+        type: choice
+        options:
+          - create
+          - whatIf
+      createResourceGroup:
+        description: Create Resource Group?
+        required: false
+        default: false
+        type: boolean
+      deployInfrastructure:
+        description: Deploy Infrastructure (Bicep)?
+        required: false
+        default: true
+        type: boolean
+      deployApplication:
+        description: Deploy Application (WebApp)?
+        required: false
+        default: true
+        type: boolean
+      testApplication:
+        description: Run Tests?
+        required: false
+        default: true
+        type: boolean
+
+#------------------------------------------------------------------------------------------------------------------------------
+jobs:
+  load-config:
+    name: Load Config
+    uses: ./.github/workflows/template-load-config.yml
+
+  create-infra:
+    name: Create Infrastructure
+    needs: load-config
+    if: ${{ github.event.inputs.deployInfrastructure == 'true' }}
+    uses: ./.github/workflows/template-bicep-deploy.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      templatePath: './infra/Bicep/'
+      templateFile: 'main.bicep'
+      parameterFile: 'main.bicepparam'
+      parameterFileReplaceTokens: 'true'
+      deploymentType: 'webapp'
+      createResourceGroup: ${{ github.event.inputs.createResourceGroup == 'true' }}
+      bicepDeploymentMode: ${{ github.event.inputs.bicepDeploymentMode }}
+    secrets: inherit
+
+  build-web-app:
+    name: Build Web App
+    needs: [load-config, create-infra]
+    if: ${{ always() && !failure() && !cancelled() && github.event.inputs.deployApplication == 'true' }}
+    uses: ./.github/workflows/template-webapp-build.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+      rootDirectory: ${{ needs.load-config.outputs.web_rootDirectory }}
+      projectName: ${{ needs.load-config.outputs.web_projectName }}
+      testDirectory: ${{ needs.load-config.outputs.web_testDirectory }}
+      testProjectName: ${{ needs.load-config.outputs.web_testProjectName }}
+      testApplication: ${{ github.event.inputs.testApplication == 'true' }}
+    secrets: inherit
+
+  deploy-web-app:
+    name: Deploy Web App
+    needs: [load-config, build-web-app]
+    if: ${{ always() && !failure() && !cancelled() && github.event.inputs.deployApplication == 'true' }}
+    uses: ./.github/workflows/template-webapp-deploy.yml
+    with:
+      envCode: ${{ github.event.inputs.deployEnvironment }}
+    secrets: inherit

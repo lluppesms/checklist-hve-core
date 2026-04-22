@@ -4,20 +4,27 @@ param location string
 @description('SQL Server name')
 param serverName string
 
-@description('SQL Server administrator login')
-param administratorLogin string
+@description('Entra ID SQL admin login display name')
+param sqlAdminLoginUserId string = ''
 
-@description('SQL Server administrator password')
-@secure()
-param administratorLoginPassword string = newGuid()
+@description('Entra ID SQL admin login object SID')
+param sqlAdminLoginUserSid string = ''
+
+@description('Entra ID SQL admin tenant ID')
+param sqlAdminLoginTenantId string = ''
 
 resource server 'Microsoft.Sql/servers@2023-08-01-preview' = {
   name: serverName
   location: location
   properties: {
-    administratorLogin: administratorLogin
-    administratorLoginPassword: administratorLoginPassword
     minimalTlsVersion: '1.2'
+    administrators: (sqlAdminLoginUserId != '') ? {
+      administratorType: 'ActiveDirectory'
+      login: sqlAdminLoginUserId
+      sid: sqlAdminLoginUserSid
+      tenantId: sqlAdminLoginTenantId
+      azureADOnlyAuthentication: false
+    } : null
   }
 }
 

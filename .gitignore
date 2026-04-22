@@ -1,0 +1,143 @@
+## .NET Core / .NET 5+
+## Ignore build output and NuGet packages
+## Based on the official dotnet .gitignore template
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored since it is restored via dotnet restore
+**/[Pp]ackages/
+# NuGet v3's project.json files produces these files
+*.nuget.props
+*.nuget.targets
+
+# MSTest test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Benchmark results
+BenchmarkDotNet.Artifacts/
+
+# .NET publish output
+[Pp]ublish/
+
+# Backup files created by the IDE
+*.[Bb]ackup
+*.bak
+
+# Auto-generated files
+*.generated.cs
+
+# User-specific files (Visual Studio)
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache files
+.vs/
+
+# Build output
+artifacts/
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Dotnet core CLI telemetry
+.dotnet/
+
+# Rider (JetBrains) project files
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+StyleCopReport.xml
+
+# Files that should never be committed
+*.pfx
+*.key
+*.pem
+secrets.json
+appsettings.Production.json
+
+# Dependency folders
+node_modules/
+bower_components/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.test
+
+# Windows Installer files from build outputs
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Azure Functions local settings (contains connection strings and secrets)
+local.settings.json
+
+# Aspire dashboard / local dev
+.aspire/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl

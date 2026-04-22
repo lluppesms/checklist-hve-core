@@ -8,7 +8,7 @@ parameters:
     default: 'dev'
   - name: dotnetVersion
     type: string
-    default: '9.0.x'
+    default: '10.0.x'
   - name: appFolderName
     type: string
     default: 'src/CheckList.Web/'
